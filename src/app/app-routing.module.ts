@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CardsComponent } from './components/main/cards/cards.component';
 
 const route: Routes = [
-    {path:'',component:CardsComponent}
+    {path:'',component:CardsComponent},
 ]
 
 @NgModule({

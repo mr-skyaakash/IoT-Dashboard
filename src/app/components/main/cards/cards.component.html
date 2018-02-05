@@ -3,12 +3,12 @@
     <mat-card-title>
       <h4>Graph View</h4>
     </mat-card-title>
-    <img mat-card-image src="/assets/images/chart.png">
+    <div [chart]="chart"></div>
     <mat-card-content>
       <p>Some Description</p>
     </mat-card-content>
     <mat-card-actions fxLayout="row-reverse">
-      <button mat-fab>
+      <button mat-fab (click)="openDialog()">
         <mat-icon>edit</mat-icon>
       </button>
     </mat-card-actions>
