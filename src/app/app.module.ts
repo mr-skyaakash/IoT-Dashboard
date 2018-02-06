@@ -13,6 +13,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CardsComponent } from './components/main/cards/cards.component';
 import { ChartModule } from 'angular-highcharts';
 import { DialogComponent } from './components/main/cards/dialog.component';
+import { WebsocketService } from './services/websocket.service';
+import { ChatService } from './services/chat.service';
+import { MqttService } from './services/mqtt.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,11 @@ import { DialogComponent } from './components/main/cards/dialog.component';
     FlexLayoutModule,
     ChartModule
   ],
-  providers: [],
+  providers: [
+    WebsocketService,
+    ChatService,
+    MqttService
+  ],
   entryComponents: [
     DialogComponent
   ],

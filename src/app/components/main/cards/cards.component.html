@@ -1,4 +1,4 @@
-<section ngClass="card-list" fxLayout fxLayout.lt-md="column" fxLayoutAlign.gt-sm="center center" fxLayoutGap="20px">
+<section ngClass="card-list" fxLayout fxLayout.lt-md="column" fxLayoutAlign.gt-sm="space-evenly center" fxLayoutGap="20px">
   <mat-card  fxFlex.lt-md="100%" fxFlex.md="400px" fxFlex.gt-md="500px">
     <mat-card-title>
       <h4>Graph View</h4>
@@ -22,7 +22,7 @@
       <p>Some Description</p>
     </mat-card-content>
     <mat-card-actions fxLayout="row-reverse">
-      <button mat-fab>
+      <button mat-fab (click)="openWeb()">
         <mat-icon>edit</mat-icon>
       </button>
     </mat-card-actions>
