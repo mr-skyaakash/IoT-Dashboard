@@ -6,6 +6,7 @@ import { WebsocketService } from '../../../services/websocket.service';
 import { ChatService } from '../../../services/chat.service';
 import { Subscription } from 'rxjs/Subscription';
 import { MqttService } from '../../../services/mqtt.service';
+import {Paho} from 'ng2-mqtt/mqttws31';
 
 @Component({
   selector: 'app-cards',
@@ -32,22 +33,43 @@ export class CardsComponent implements OnInit, OnDestroy {
 
   sub: Subscription;
   newPoint: number;
+  _client: Paho.MQTT.Client;
 
   private message = {
-		author: 'tutorialedge',
-		message: 'this is a test message'
-	}
+    author: 'tutorialedge',
+    message: 'this is a test message'
+  };
 
   constructor(private dialog: MatDialog, private chat: ChatService, private mqtt: MqttService) {
     // this.sub = this.chat.messages.subscribe( msg => {
-    //   console.log("Response from websocket : " + msg.message );
+    //   console.log('Response from websocket : ' + msg.message );
     // });
     this.mqtt.init();
 
     this.sub = this.mqtt.newData.subscribe( data => {
       this.chart.addPoint(data);
     });
+    // this._client = new Paho.MQTT.Client('broker.mqttdashboard.com', 8000, 'clientID');
+
+    // this._client.onConnectionLost = (responseObject: Object) => {
+    //   console.log('Connection lost.');
+    // };
+
+    // this._client.onMessageArrived = (message: Paho.MQTT.Message) => {
+    //   console.log('Message arrived.');
+    // };
+
+    // this._client.connect({ onSuccess: this.onConnected.bind(this) });
   }
+
+  private onConnected(): void {
+    this._client.subscribe('World', {onSuccess: this.onSubscribe});
+    let message = new Paho.MQTT.Message('Hello');
+    message.destinationName = 'World';
+    this._client.send(message);
+  }
+
+  onSubscribe() {}
 
   ngOnInit() {
   }
@@ -55,11 +77,10 @@ export class CardsComponent implements OnInit, OnDestroy {
   openDialog() {
     const dialogRef = this.dialog.open(DialogComponent,{
     });
-    
+
     dialogRef.afterClosed().subscribe(result => {
-      if( result !== false ) {
-        
-        this.chart.addPoint(parseInt(result));
+      if ( result !== false ) {
+        this.chart.addPoint(parseInt(result, 10));
       }
     });
 
@@ -67,7 +88,7 @@ export class CardsComponent implements OnInit, OnDestroy {
 
   openWeb() {
     this.chat.messages.next(this.message);
-    console.log("Message sent");
+    console.log('Message sent');
   }
 
   ngOnDestroy() {

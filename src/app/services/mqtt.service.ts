@@ -1,49 +1,56 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import {Paho} from 'ng2-mqtt/mqttws31';
 
 @Injectable()
 export class MqttService {
-  
-  private client: any;
+
+  private _client: Paho.MQTT.Client;
   newData = new Subject<number>();
+  topic = 'Data';
 
   constructor() {
   }
 
   init() {
-    this.client = new Paho.MQTT.Client('172.16.73.4', 1883, "clientId");
+    this._client = new Paho.MQTT.Client('broker.mqttdashboard.com', 8000, 'clientID');
     // Create a client instance
 
     // set callback handlers
-    this.client.onConnectionLost = this.onConnectionLost;
-    this.client.onMessageArrived = this.onMessageArrived;
+    this._client.onConnectionLost = this.onConnectionLost;
+    this._client.onMessageArrived = this.onMessageArrived.bind(this);
     // 'userName':'buejxdyr', 'password':'14_7MM9-anPM',
     // connect the this.client
-    this.client.connect({ onSuccess: this.onConnect});
+    console.log(this._client);
+    this._client.connect({onSuccess: this.onConnect.bind(this)});
   }
 
   // called when the this.client connects
   onConnect() {
     // Once a connection has been made, make a subscription and send a message.
-    console.log("onConnect");
-    this.client.subscribe("World");
-    let message = new Paho.MQTT.Message("Hello");
-    message.destinationName = "World";
-    this.client.send(message);
+    console.log('onConnect : ' + this._client);
+    this._client.subscribe(this.topic, {onSuccess: this.onSubscribe});
+    let message = new Paho.MQTT.Message('Hello');
+    message.destinationName = 'World';
+    this._client.send(message);
   }
 
-  // called when the this.client loses its connection
+  // called when the this._client loses its connection
   onConnectionLost(responseObject) {
     if (responseObject.errorCode !== 0) {
-      console.log("onConnectionLost:"+responseObject.errorMessage);
+      console.log('onConnectionLost:' + responseObject.errorMessage);
     }
+  }
+
+  onSubscribe() {
+    console.log('Subscribed Successfully');
   }
 
   // called when a message arrives
   onMessageArrived(message) {
-    console.log("onMessageArrived:"+message.payloadString);
+    console.log('onMessageArrived :' + message.payloadString);
     this.newData.next(
-      parseInt(message.payloadString)
+      parseInt(message.payloadString, 10)
     );
   }
 
