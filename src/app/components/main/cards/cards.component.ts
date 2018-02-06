@@ -49,33 +49,14 @@ export class CardsComponent implements OnInit, OnDestroy {
     this.sub = this.mqtt.newData.subscribe( data => {
       this.chart.addPoint(data);
     });
-    // this._client = new Paho.MQTT.Client('broker.mqttdashboard.com', 8000, 'clientID');
 
-    // this._client.onConnectionLost = (responseObject: Object) => {
-    //   console.log('Connection lost.');
-    // };
-
-    // this._client.onMessageArrived = (message: Paho.MQTT.Message) => {
-    //   console.log('Message arrived.');
-    // };
-
-    // this._client.connect({ onSuccess: this.onConnected.bind(this) });
   }
-
-  private onConnected(): void {
-    this._client.subscribe('World', {onSuccess: this.onSubscribe});
-    let message = new Paho.MQTT.Message('Hello');
-    message.destinationName = 'World';
-    this._client.send(message);
-  }
-
-  onSubscribe() {}
 
   ngOnInit() {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(DialogComponent,{
+    const dialogRef = this.dialog.open(DialogComponent, {
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -84,11 +65,6 @@ export class CardsComponent implements OnInit, OnDestroy {
       }
     });
 
-  }
-
-  openWeb() {
-    this.chat.messages.next(this.message);
-    console.log('Message sent');
   }
 
   ngOnDestroy() {
