@@ -16,6 +16,9 @@ import { DialogComponent } from './components/main/cards/dialog.component';
 import { WebsocketService } from './services/websocket.service';
 import { ChatService } from './services/chat.service';
 import { MqttService } from './services/mqtt.service';
+import { LoginComponent } from './components/auth/login/login.component';
+import { SignupComponent } from './components/auth/signup/signup.component';
+import { AuthService } from './services/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,9 @@ import { MqttService } from './services/mqtt.service';
     HeaderComponent,
     SidenavComponent,
     CardsComponent,
-    DialogComponent
+    DialogComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +43,8 @@ import { MqttService } from './services/mqtt.service';
   providers: [
     WebsocketService,
     ChatService,
-    MqttService
+    MqttService,
+    AuthService
   ],
   entryComponents: [
     DialogComponent

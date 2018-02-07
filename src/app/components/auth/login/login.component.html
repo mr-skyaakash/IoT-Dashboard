@@ -1,0 +1,28 @@
+<section class="card-layout" fxLayout fxLayoutAlign="center center">
+  <mat-card fxFlex="35" fxFlex.xs="70" fxFlex.sm="80" class="card">
+    <mat-card-title>
+      <h3>Login</h3>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <p>to access Server</p>
+    </mat-card-subtitle>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (submit)="onSubmit()" fxLayout="column" fxLayoutGap="15px">
+        <mat-form-field>
+          <input matInput type="email" placeholder="Your E-mail" formControlName="email" name="email">
+          <mat-error *ngIf="email.hasError('required')">Email cannot be empty</mat-error>
+          <mat-error *ngIf="!email.hasError('required')">Invalid e-mail</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" placeholder="Your Password" formControlName="password" name="password">
+          <mat-hint>{{ password.value?.length > 6 ? 6 : password.value?.length }} / 6</mat-hint>
+          <mat-error *ngIf="!password.hasError('minlength')">Password cannot be empty</mat-error>
+          <mat-error *ngIf="password.hasError('minlength')">Password too short</mat-error>
+        </mat-form-field>
+        <div fxLayout="row-reverse">
+          <button type="submit" mat-raised-button color="accent" [disabled]="loginForm.invalid">Login</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</section>

@@ -6,6 +6,7 @@ import { WebsocketService } from '../../../services/websocket.service';
 import { ChatService } from '../../../services/chat.service';
 import { Subscription } from 'rxjs/Subscription';
 import { MqttService } from '../../../services/mqtt.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-cards',
@@ -38,18 +39,21 @@ export class CardsComponent implements OnInit, OnDestroy {
 		message: 'this is a test message'
 	}
 
-  constructor(private dialog: MatDialog, private chat: ChatService, private mqtt: MqttService) {
+  constructor(private authService: AuthService ,private dialog: MatDialog, private chat: ChatService, private mqtt: MqttService) {
     // this.sub = this.chat.messages.subscribe( msg => {
     //   console.log("Response from websocket : " + msg.message );
     // });
-    this.mqtt.init();
-
-    this.sub = this.mqtt.newData.subscribe( data => {
-      this.chart.addPoint(data);
-    });
   }
 
   ngOnInit() {
+
+    if(this.authService.isAuth()) {
+      this.mqtt.init();
+
+      this.sub = this.mqtt.newData.subscribe( data => {
+        this.chart.addPoint(data);
+    });
+    }
   }
 
   openDialog() {
@@ -65,10 +69,10 @@ export class CardsComponent implements OnInit, OnDestroy {
 
   }
 
-  openWeb() {
-    this.chat.messages.next(this.message);
-    console.log("Message sent");
-  }
+  // openWeb() {
+  //   this.chat.messages.next(this.message);
+  //   console.log("Message sent");
+  // }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
