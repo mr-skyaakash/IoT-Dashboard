@@ -6,7 +6,6 @@ import { WebsocketService } from '../../../services/websocket.service';
 import { ChatService } from '../../../services/chat.service';
 import { Subscription } from 'rxjs/Subscription';
 import { MqttService } from '../../../services/mqtt.service';
-import {Paho} from 'ng2-mqtt/mqttws31';
 
 @Component({
   selector: 'app-cards',
@@ -33,38 +32,42 @@ export class CardsComponent implements OnInit, OnDestroy {
 
   sub: Subscription;
   newPoint: number;
-  _client: Paho.MQTT.Client;
 
   private message = {
-    author: 'tutorialedge',
-    message: 'this is a test message'
-  };
+		author: 'tutorialedge',
+		message: 'this is a test message'
+	}
 
   constructor(private dialog: MatDialog, private chat: ChatService, private mqtt: MqttService) {
     // this.sub = this.chat.messages.subscribe( msg => {
-    //   console.log('Response from websocket : ' + msg.message );
+    //   console.log("Response from websocket : " + msg.message );
     // });
     this.mqtt.init();
 
     this.sub = this.mqtt.newData.subscribe( data => {
       this.chart.addPoint(data);
     });
-
   }
 
   ngOnInit() {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(DialogComponent, {
+    const dialogRef = this.dialog.open(DialogComponent,{
     });
-
+    
     dialogRef.afterClosed().subscribe(result => {
-      if ( result !== false ) {
-        this.chart.addPoint(parseInt(result, 10));
+      if( result !== false ) {
+        
+        this.chart.addPoint(parseInt(result));
       }
     });
 
+  }
+
+  openWeb() {
+    this.chat.messages.next(this.message);
+    console.log("Message sent");
   }
 
   ngOnDestroy() {
