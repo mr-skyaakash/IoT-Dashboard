@@ -6,5 +6,7 @@
     </span>
     <span class="logo" routerLink="/">Logo</span>
     <span class="fill"></span>
+    <button mat-raised-button color="accent" *ngIf="doLogin" routerLink="/login">Login</button>
+    <button mat-raised-button color="accent" *ngIf="doSignup" routerLink="/signup">Signup</button>
     <button mat-raised-button color="accent" *ngIf="isAuth" (click)="onLogout()">Logout</button>
   </mat-toolbar>

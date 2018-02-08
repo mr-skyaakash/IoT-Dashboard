@@ -5,3 +5,7 @@ mat-sidenav-container, mat-sidenav, mat-sidenav-content {
 mat-sidenav {
     width: 200px;
 }
+
+.animation {
+    overflow: hidden;
+}

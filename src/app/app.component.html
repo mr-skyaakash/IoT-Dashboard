@@ -4,8 +4,10 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <app-header (sidenav)="sidenav.open()"></app-header>
-    <main>
-        <router-outlet></router-outlet>
+    <main class="animation">
+      <div [@slideUpAnimation]="getState(o)">
+        <router-outlet #o="outlet"></router-outlet>
+      </div>
     </main>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
+import { SlideUpAnimation } from '../../../_animations/slide-up.animation';
 
 @Component({
   selector: 'app-signup',
+  animations: [SlideUpAnimation],
+  host: { '@slideUpAnimation' : '' },
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
