@@ -1,4 +1,5 @@
 .card-layout {
     height: calc(100vh - 64px);
+    z-index: 1 !important;
 }
 

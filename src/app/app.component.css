@@ -8,4 +8,15 @@ mat-sidenav {
 
 .animation {
     overflow: hidden;
+    z-index: 1;
+}
+
+.header {
+    z-index: 9999 !important;
+    overflow: hidden;
+}
+
+.back {
+    z-index: 1;
+    overflow: hidden;
 }
