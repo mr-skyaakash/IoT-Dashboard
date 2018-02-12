@@ -17,12 +17,17 @@
     <mat-card-title>
       <h4>Admin View</h4>
     </mat-card-title>
-    <img mat-card-image src="/assets/images/people.png">
-    <mat-card-content>
-      <p>Some Description</p>
-    </mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let dev of _devices">
+        <mat-icon matListIcon>devices other</mat-icon>
+        <span style="padding-left: 5px">{{dev.name}}</span>
+        <span style="flex: 1 1 auto"></span>
+        <mat-slide-toggle (change)="toggle(dev)"></mat-slide-toggle>
+      </mat-list-item>
+    </mat-list>
+  
     <mat-card-actions fxLayout="row-reverse">
-      <button mat-fab>
+      <button mat-fab (click)="addDevice()">
         <mat-icon>edit</mat-icon>
       </button>
     </mat-card-actions>
