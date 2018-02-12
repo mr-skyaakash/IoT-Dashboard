@@ -10,6 +10,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { ConnectService } from '../../../services/devices/connect.service';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { AddDeviceComponent } from './add-device.component';
+import { forEach } from '@angular/router/src/utils/collection';
 
 
 @Component({
@@ -94,7 +95,16 @@ export class CardsComponent implements OnInit, OnDestroy {
     });
   }
 
+  findDevice(dev) {
+    this._devices.forEach(element => {
+      if ( element.id === dev.id ) {
+        element.active = !element.active;
+      }
+    });
+  }
+
   toggle(dev) {
+    this.findDevice(dev);
     let topic = dev.topic;
     let data = dev.active ? 'on' : 'off';
     this.devices.sendData.next({
