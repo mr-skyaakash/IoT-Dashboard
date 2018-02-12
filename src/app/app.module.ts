@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CardsComponent } from './components/main/cards/cards.component';
 import { ChartModule } from 'angular-highcharts';
-import { DialogComponent } from './components/main/cards/dialog.component';
+import { DialogComponent } from './components/main/cards/data/dialog.component';
 import { WebsocketService } from './services/websocket.service';
 import { ChatService } from './services/chat.service';
 import { MqttService } from './services/mqtt.service';
@@ -20,7 +20,11 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { AuthService } from './services/auth/auth.service';
 import { ConnectService } from './services/devices/connect.service';
-import { AddDeviceComponent } from './components/main/cards/add-device.component';
+import { AddDeviceComponent } from './components/main/cards/devices/add-device.component';
+import { TabsComponent } from './components/main/tabs/tabs.component';
+import { DevicesComponent } from './components/main/cards/devices/devices.component';
+import { DataComponent } from './components/main/cards/data/data.component';
+import { AdminComponent } from './components/main/cards/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,11 @@ import { AddDeviceComponent } from './components/main/cards/add-device.component
     DialogComponent,
     LoginComponent,
     SignupComponent,
-    AddDeviceComponent
+    AddDeviceComponent,
+    TabsComponent,
+    DevicesComponent,
+    DataComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
