@@ -6,15 +6,15 @@ import { SignupComponent } from './components/auth/signup/signup.component';
 import { AuthGuard } from './services/auth/auth.guard';
 import { TabsComponent } from './components/main/tabs/tabs.component';
 
-const route: Routes = [
-    {path:'login',component:LoginComponent, data: { state: 'login' }},
-    {path:'signup',component:SignupComponent, data: { state: 'signup' }},
-    {path:'',component:TabsComponent, canActivate: [AuthGuard]},
-]
+const route:  Routes = [
+    {path: 'login', component: LoginComponent, data:  { state:  'login' }},
+    {path: 'signup', component: SignupComponent, data:  { state:  'signup' }},
+    {path: '', component: TabsComponent, canActivate:  [AuthGuard]},
+];
 
 @NgModule({
-    imports: [RouterModule.forRoot(route)],
-    exports: [RouterModule],
+    imports:  [RouterModule.forRoot(route)],
+    exports:  [RouterModule],
     providers: [
         AuthGuard
     ]
