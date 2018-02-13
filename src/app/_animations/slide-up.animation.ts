@@ -1,29 +1,28 @@
-import { trigger, transition, style, animate, state, query, group } from "@angular/animations";
-import {  } from "@angular/core";
+import { trigger, transition, style, animate, state, query, group } from '@angular/animations';
 
-export const SlideUpAnimation = 
+export const SlideUpAnimation =
     trigger('slideUpAnimation', [
-        transition('login => signup', [    
-            query(':enter, :leave', style({ position: 'fixed', width:'100%', zIndex: '1' }),
+        transition('login => signup', [
+            query(':enter, :leave', style({ position: 'fixed', width: '100%', zIndex: '1' }),
             { optional: true}),
-            group([ 
+            group([
                 query(':enter', [
-                style({ transform: 'translateY(100%)', zIndex: '1' }),
-                animate('0.8s ease-in-out', style({ transform: 'translateY(0%)' }))
+                style({ transform: 'translate3d(0,100%,0)'}),
+                animate('0.8s ease-in-out', style({ transform: 'translate3d(0,0%,0)' }))
                 ], { optional: true}),
                 query(':leave', [
-                style({ transform: 'translateY(0%)' }),
-                animate('0.8s ease-in-out', style({ transform: 'translateY(-100%)', zIndex: '1' }))],
+                style({ transform: 'translate3d(0,0%,0)', zIndex: '-9999' }),
+                animate('0.8s ease-in-out', style({ transform: 'translate3d(0,-100%,0)', zIndex: '-9999' }))],
             { optional: true}),
             ])
             ]),
-            transition('signup => login', [    
-                query(':enter, :leave', style({ position: 'fixed', width:'100%', zIndex: '1' }),
+            transition('signup => login', [
+                query(':enter, :leave', style({ position: 'fixed', width: '100%', zIndex: '1' }),
                 { optional: true}),
-                group([ 
+                group([
                     query(':enter', [
-                    style({ transform: 'translateY(-100%)', zIndex: '1' }),
-                    animate('0.8s ease-in-out', style({ transform: 'translateY(0%)' }))
+                    style({ transform: 'translateY(-100%)', zIndex: '-9999' }),
+                    animate('0.8s ease-in-out', style({ transform: 'translateY(0%)', zIndex: '-9999' }))
                     ], { optional: true}),
                     query(':leave', [
                     style({ transform: 'translateY(0%)', zIndex: '1' }),
@@ -31,10 +30,10 @@ export const SlideUpAnimation =
                 { optional: true}),
                 ])
                 ]),
-            // transition('void => login', [    
+            // transition('void => login', [
             //     query(':enter, :leave', style({ position: 'fixed', width:'100%' }),
             //     { optional: true}),
-            //     group([ 
+            //     group([
             //         query(':enter', [
             //         style({ transform: 'translateY(100%)' }),
             //         animate('0.8s ease-in-out', style({ transform: 'translateY(0%)' }))
