@@ -1,9 +1,8 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="push">
-    <app-sidenav></app-sidenav>
+  <mat-sidenav>
   </mat-sidenav>
   <mat-sidenav-content>
-    <app-header class="header" (sidenav)="sidenav.open()"></app-header>
+    <app-header class="header"></app-header>
     <main class="animation" [@slideUpAnimation]="getState(o)" >
         <router-outlet class="back" #o="outlet"></router-outlet>
     </main>

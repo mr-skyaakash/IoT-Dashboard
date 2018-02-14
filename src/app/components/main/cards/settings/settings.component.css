@@ -1,0 +1,9 @@
+.card-list {
+    padding: 25px;
+    padding-bottom: 35px;
+    height: 100%;
+}
+
+.speedial {
+    transform: translateY(60%);
+}

@@ -1,61 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { AddDeviceComponent } from './add-device.component';
-import { ConnectService } from '../../../../services/devices/connect.service';
-import { MatDialog } from '@angular/material';
+import { Subscription } from 'rxjs/Subscription';
+import { Device } from '../../../../services/devices/device.model';
+import { AddDeviceService } from '../../../../services/devices/add-device.service';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-devices',
   templateUrl: './devices.component.html',
   styleUrls: ['./devices.component.css']
 })
-export class DevicesComponent implements OnInit {
+export class DevicesComponent implements OnInit, OnDestroy {
 
-  private genId = 0;
-  private _devices = [];
+  private _devices: Device[];
+  private _deviceSubscription: Subscription;
 
-  constructor(private devices: ConnectService, private dialog: MatDialog) { }
+  constructor(private deviceService: AddDeviceService) {}
 
   ngOnInit() {
-  }
-
-  addDevice() {
-    const deviceDialog = this.dialog.open( AddDeviceComponent, {
-    });
-
-    deviceDialog.afterClosed().subscribe(result => {
-      if( result !== false ) {
-        this._devices.push({
-          'name': result.name,
-          'topic': result.topic,
-          'id': this.genId,
-          'active': false
-        });
-        this.genId++;
-        console.log(this._devices);
-      }
-    });
-  }
-
-  findDevice(dev) {
-    this._devices.forEach(element => {
-      if ( element.id === dev.id ) {
-        element.active = !element.active;
-      }
+    this._deviceSubscription = this.deviceService.devices.subscribe(deviceList => {
+      this._devices = deviceList;
     });
   }
 
   toggle(dev) {
-    this.findDevice(dev);
-    let topic = dev.topic;
-    let data = dev.active ? 'on' : 'off';
-    this.devices.sendData.next({
-      'data': data,
-      'topic': topic
-    });
-    // this.devices.onPublish({
-    //   'data': data,
-    //   'topic': topic
-    // });
+    this.deviceService.changeState(dev.id, dev.active);
+  }
+
+  ngOnDestroy() {
+    this._deviceSubscription.unsubscribe();
   }
 
 }

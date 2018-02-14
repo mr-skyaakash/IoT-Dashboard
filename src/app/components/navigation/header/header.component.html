@@ -1,12 +1,13 @@
 <mat-toolbar class="header" color="primary" class="sticky">
-    <span>
-      <button mat-icon-button (click)="sidenavOpen()">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </span>
     <span class="logo" routerLink="/">Logo</span>
     <span class="fill"></span>
-    <button mat-raised-button color="accent" *ngIf="doLogin" routerLink="/login">Login</button>
-    <button mat-raised-button color="accent" *ngIf="doSignup" routerLink="/signup">Signup</button>
-    <button mat-raised-button color="accent" *ngIf="isAuth" (click)="onLogout()">Logout</button>
+    <mat-menu [overlapTrigger]="false" #listOptions="matMenu">
+        <button *ngIf="doLogin" routerLink="/login" mat-menu-item>Login</button>
+        <button *ngIf="doSignup" routerLink="/signup" mat-menu-item>Signup</button>
+        <button *ngIf="isAuth" (click)="onLogout()" mat-menu-item>Logout</button>
+    </mat-menu>
+
+    <button mat-icon-button [matMenuTriggerFor]="listOptions">
+        <mat-icon>more_vert</mat-icon>
+    </button>
   </mat-toolbar>

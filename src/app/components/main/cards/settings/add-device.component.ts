@@ -25,12 +25,16 @@ export class AddDeviceComponent implements OnInit {
     
     constructor( private currentDialog: MatDialogRef<AddDeviceComponent>) {}
     
-    ngOnInit() {}
+    ngOnInit() {
+        this.currentDialog.disableClose = true;
+    }
 
     submit(dev,topic) {
-        if (dev.value != null && topic.value != null) {
+        if (dev.value !== '' && topic.value !== '') {
             this.currentDialog.close({name: dev.value, topic: topic.value});
-        } else {}
+        } else {
+            this.currentDialog.close(false);
+        }
         // return {name: dev.value, topic: topic.value}
         // {name: device.value, topic: topic.value}
     }

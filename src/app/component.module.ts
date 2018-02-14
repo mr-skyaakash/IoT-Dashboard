@@ -3,7 +3,7 @@ import { SidenavComponent } from './components/navigation/sidenav/sidenav.compon
 import { CardsComponent } from './components/main/cards/cards.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
-import { AddDeviceComponent } from './components/main/cards/devices/add-device.component';
+import { AddDeviceComponent } from './components/main/cards/settings/add-device.component';
 import { TabsComponent } from './components/main/tabs/tabs.component';
 import { DevicesComponent } from './components/main/cards/devices/devices.component';
 import { DataComponent } from './components/main/cards/data/data.component';
@@ -15,6 +15,15 @@ import { Material } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ChartModule } from 'angular-highcharts';
+import { SettingsComponent } from './components/main/cards/settings/settings.component';
+import { AddDeviceService } from './services/devices/add-device.service';
+import { AuthService } from './services/auth/auth.service';
+import { MqttService } from './services/mqtt.service';
+import { ConnectService } from './services/devices/connect.service';
+import { ModifyDeviceComponent } from './components/main/cards/settings/modify-device.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRouting } from './app-routing.module';
+import { ErrorComponent } from './components/notFound/error/error.component';
 
 @NgModule({
     imports: [CommonModule,
@@ -22,7 +31,9 @@ import { ChartModule } from 'angular-highcharts';
                 FormsModule,
                 ReactiveFormsModule,
                 FlexLayoutModule,
-                ChartModule
+                ChartModule,
+                BrowserAnimationsModule,
+                AppRouting,
         ],
     declarations: [HeaderComponent,
             SidenavComponent,
@@ -34,7 +45,11 @@ import { ChartModule } from 'angular-highcharts';
             DevicesComponent,
             DataComponent,
             AdminComponent,
-            DialogComponent],
+            DialogComponent,
+            ModifyDeviceComponent,
+            SettingsComponent,
+            ErrorComponent,
+        ],
     exports: [HeaderComponent,
             SidenavComponent,
             CardsComponent,
@@ -42,17 +57,31 @@ import { ChartModule } from 'angular-highcharts';
             SignupComponent,
             AddDeviceComponent,
             TabsComponent,
+            DialogComponent,
+            ModifyDeviceComponent,
             DevicesComponent,
             DataComponent,
             AdminComponent,
+            SettingsComponent,
             Material,
             FormsModule,
             ReactiveFormsModule,
             FlexLayoutModule,
-            ChartModule],
+            ChartModule,
+            BrowserAnimationsModule,
+                AppRouting,
+                ErrorComponent
+        ],
     entryComponents: [
                 DialogComponent,
+                ModifyDeviceComponent,
                 AddDeviceComponent
-    ]
+    ],
+    providers: [
+            AddDeviceService,
+            AuthService,
+            MqttService,
+            ConnectService
+        ]
 })
 export class ComponentModule {}

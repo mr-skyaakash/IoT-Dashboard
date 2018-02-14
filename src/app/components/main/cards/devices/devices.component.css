@@ -1,3 +1,11 @@
 .card-list {
     padding: 25px;
 }
+
+.move-right {
+    flex-direction: row-reverse
+}
+
+.card {
+    margin: 10px;
+}

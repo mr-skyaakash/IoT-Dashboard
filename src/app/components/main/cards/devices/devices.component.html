@@ -1,21 +1,20 @@
-<section ngClass="card-list" fxLayout fxLayout.lt-md="column" fxLayoutAlign.gt-sm="space-evenly center" fxLayoutGap="10px">
-    <mat-card  fxFlex.lt-md="100%" fxFlex.md="30" fxFlex.gt-md="30">
-        <mat-card-title>
-          <h4>Device View</h4>
+<section ngClass="card-list" fxLayout fxLayout.lt-sm="column" fxLayoutAlign.gt-xs="space-evenly center" fxLayoutGap.sm="10px" fxLayoutGap.md="10px" fxLayoutWrap>
+    <mat-card ngClass="card" fxFlex.lt-sm="100%" fxFlex.sm="45%" fxFlex.md="30%" fxFlex.gt-md="30%" *ngFor="let dev of _devices">
+        <mat-card-title fxLayout>
+            <span>{{dev.name}}</span>
+            <span style="flex: 1 1 auto;"></span>
+            <section>
+                <mat-slide-toggle (change)="toggle(dev)"></mat-slide-toggle>
+            </section>
         </mat-card-title>
-        <mat-list>
-          <mat-list-item *ngFor="let dev of _devices">
-            <mat-icon matListIcon>devices other</mat-icon>
-            <span style="padding-left: 5px">{{dev.name}}</span>
-            <span style="flex: 1 1 auto"></span>
-            <mat-slide-toggle (change)="toggle(dev)"></mat-slide-toggle>
-          </mat-list-item>
-        </mat-list>
-      
-        <mat-card-actions fxLayout="row-reverse">
-          <button mat-fab (click)="addDevice()">
-            <mat-icon>edit</mat-icon>
-          </button>
-        </mat-card-actions>
       </mat-card>
+      <mat-card  fxFlex.lt-sm="100%" fxFlex.sm="45" fxFlex.md="30" fxFlex.gt-md="30">
+          <mat-card-title fxLayout>
+              <span>Dummy</span>
+              <span style="flex: 1 1 auto;"></span>
+              <section>
+                  <mat-slide-toggle></mat-slide-toggle>
+              </section>
+          </mat-card-title>
+        </mat-card>
 </section>

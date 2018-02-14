@@ -14,8 +14,6 @@ import { ComponentModule } from './component.module';
   imports: [
     ComponentModule,
     BrowserModule,
-    BrowserAnimationsModule,
-    AppRouting,
   ],
   providers: [
   ],
