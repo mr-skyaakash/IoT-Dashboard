@@ -3,34 +3,35 @@ import { User } from './user.model';
 import { AuthUser } from './auth-user.model';
 import { Subject } from 'rxjs/Subject';
 import { Router } from '@angular/router';
-import { Http } from '@angular/http';
-
+import {Headers, RequestOptions,Http} from '@angular/http';
 @Injectable()
 export class AuthService {
 
     private _user: any;
-    private status: string;
+    private status: number;
     authChange = new Subject<boolean>();
 
     constructor(private router: Router, private http: Http) {}
 
     login(authUser: AuthUser) {
+        let header=new Headers({'content-type':'application/json'});
+        let options=new RequestOptions({headers:header});
         this._user = {
             user: {
                 uname: authUser.email,
                 password: authUser.password
+                
             }
         };
-        console.log(this._user);
-        this.http.post('172.16.72.32:5000/login', this._user).map(res => {
+       // console.log(JSON.stringify(this._user));
+        this.http.post('http://172.16.73.32:5000/login', JSON.stringify(this._user),options).subscribe(res => {
             console.log(res);
-            this.status = res.toString();
+            this.status = res.status;
+            if ( this.status === 200 ) {
+                this.authChange.next(true);
+                this.router.navigate(['/']);
+            }
         });
-        if ( this.status === 'success' ) {
-            this.authChange.next(true);
-            this.router.navigate(['/']);
-        }
-
     }
 
     signup(authUser: AuthUser) {

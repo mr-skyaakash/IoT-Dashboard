@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
         validators: [Validators.required, Validators.email]
       }),
       password: this.password = new FormControl('', {
-        validators: [Validators.required, Validators.minLength(6)]
+        validators: [Validators.required, Validators.minLength(4)]
       })
     });
   }

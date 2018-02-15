@@ -43,9 +43,9 @@ export class DataComponent implements OnInit, OnDestroy {
   };
 
   constructor(private authService: AuthService , private dialog: MatDialog, private chat: ChatService, private mqtt: MqttService) {
-    // this.sub = this.chat.messages.subscribe( msg => {
-    //   console.log("Response from websocket : " + msg.message );
-    // });
+    this.sub = this.chat.messages.subscribe( msg => {
+      console.log("Response from websocket : " + msg.message );
+    });
 
     this.options = {
       chart: {
@@ -86,10 +86,10 @@ export class DataComponent implements OnInit, OnDestroy {
   }
 
 
-  // openWeb() {
-  //   this.chat.messages.next(this.message);
-  //   console.log("Message sent");
-  // }
+  openWeb() {
+    this.chat.messages.next(this.message);
+    console.log("Message sent");
+  }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
