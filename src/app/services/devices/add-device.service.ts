@@ -6,9 +6,8 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class AddDeviceService {
 
-  private devicesList= new Array<Device>();
+  private devicesList = new Array<Device>();
   public devices = new Subject<Device[]>();
-  
   private _genId = 0;
 
   constructor() { }

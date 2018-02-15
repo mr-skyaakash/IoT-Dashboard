@@ -28,7 +28,7 @@ export class MqttService {
     // Once a connection has been made, make a subscription and send a message.
     console.log('onConnect : ' + this._client);
     this._client.subscribe(this.topic, {onSuccess: this.onSubscribe});
-    let message = new Paho.MQTT.Message('Hello');
+    const message = new Paho.MQTT.Message('Hello');
     message.destinationName = 'World';
     this._client.send(message);
   }

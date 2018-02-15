@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { SlideUpAnimation } from '../../../_animations/slide-up.animation';
+import { INVALID } from '@angular/forms/src/model';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   email: FormControl;
   password: FormControl;
+  load =  false;
 
   constructor(private service: AuthService) { }
 
@@ -30,7 +32,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  loading() {
+    this.load = true;
+    this.loginForm.disable();
+  }
+
   onSubmit() {
+    this.loading();
     this.service.login( {
       email: this.email.value,
       password: this.password.value

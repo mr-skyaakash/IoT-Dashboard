@@ -8,7 +8,7 @@ import { TabsComponent } from './components/main/tabs/tabs.component';
 import { ErrorComponent } from './components/notFound/error/error.component';
 
 const route:  Routes = [
-    {path: '', component: TabsComponent, canActivate:  [AuthGuard]},
+    {path: '', component: TabsComponent, canActivate:  [AuthGuard], data: { state: 'home'}},
     {path: 'login', component: LoginComponent, data:  { state:  'login' }},
     {path: 'signup', component: SignupComponent, data:  { state:  'signup' }},
     {path: '**', component: ErrorComponent}

@@ -15,14 +15,15 @@
         </mat-form-field>
         <mat-form-field>
           <input matInput type="password" placeholder="Your Password" formControlName="password" name="password">
-          <mat-hint>{{ password.value?.length > 6 ? 6 : password.value?.length }} / 6</mat-hint>
+          <mat-hint>{{ password.value?.length > 4 ? 4 : password.value?.length }} / 4</mat-hint>
           <mat-error *ngIf="!password.hasError('minlength')">Password cannot be empty</mat-error>
           <mat-error *ngIf="password.hasError('minlength')">Password too short</mat-error>
         </mat-form-field>
         <div fxLayout="row-reverse">
-          <button type="submit" mat-raised-button color="accent" [disabled]="loginForm.invalid">Login</button>
+          <button type="submit" mat-raised-button color="accent" [disabled]="loginForm.invalid && !load">Login</button>
         </div>
       </form>
     </mat-card-content>
+    <mat-progress-bar *ngIf="load" mode="indeterminate"></mat-progress-bar>
   </mat-card>
 </section>

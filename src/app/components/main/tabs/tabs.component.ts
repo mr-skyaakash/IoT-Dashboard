@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {} from '../../../_animations/slide-left.animation';
 import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({

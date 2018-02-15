@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ChartComponent } from 'angular2-highcharts';
 import { MatDialog } from '@angular/material';
-import { ChatService } from '../../../../services/chat.service';
 import { MqttService } from '../../../../services/mqtt.service';
 import { DialogComponent } from './dialog.component';
 import { AuthService } from '../../../../services/auth/auth.service';
@@ -42,11 +41,7 @@ export class DataComponent implements OnInit, OnDestroy {
     message: 'this is a test message'
   };
 
-  constructor(private authService: AuthService , private dialog: MatDialog, private chat: ChatService, private mqtt: MqttService) {
-    this.sub = this.chat.messages.subscribe( msg => {
-      console.log("Response from websocket : " + msg.message );
-    });
-
+  constructor(private authService: AuthService , private dialog: MatDialog, private mqtt: MqttService) {
     this.options = {
       chart: {
         type: 'line'
@@ -83,12 +78,6 @@ export class DataComponent implements OnInit, OnDestroy {
       }
     });
 
-  }
-
-
-  openWeb() {
-    this.chat.messages.next(this.message);
-    console.log("Message sent");
   }
 
   ngOnDestroy() {

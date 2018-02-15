@@ -27,17 +27,20 @@ export class HeaderComponent implements OnInit {
       this.isAuth = auth;
     });
 
-    this.router.events.filter( e => e instanceof NavigationEnd ).subscribe( () => {
-      this.url = this.router.url;
-      if ( this.url.toString() === '/login' ) {
-        this.doLogin = false;
-        this.doSignup = true;
-      } else if ( this.url.toString() === '/signup' ) {
-      this.doLogin = true;
-      this.doSignup = false;
-    } else {
-      this.doSignup = this.doLogin = false;
-    }
+    this.router.events.subscribe((event) => {
+
+      if ( event instanceof NavigationEnd ) {
+        this.url = this.router.url;
+        if ( this.url.toString() === '/login' ) {
+          this.doLogin = false;
+          this.doSignup = true;
+        } else if ( this.url.toString() === '/signup' ) {
+          this.doLogin = true;
+          this.doSignup = false;
+        } else {
+        this.doSignup = this.doLogin = false;
+        }
+      }
     });
   }
 
@@ -46,9 +49,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
-    console.log('Logout');
     this._service.logout();
-    console.log('Logout Complete');
   }
 
 }

@@ -12,7 +12,7 @@ export class ConnectService {
 
   constructor() {
 
-    this._client = new Paho.MQTT.Client('broker.mqttdashboard.com',8000,'ClientUI');
+    this._client = new Paho.MQTT.Client('broker.mqttdashboard.com', 8000, 'ClientUI');
     this._client.onConnectionLost = this.onConnectionLost;
     this._client.onMessageArrived = this.onMessageArrived.bind(this);
 
@@ -25,8 +25,7 @@ export class ConnectService {
       message.destinationName = this._topic;
       if ( this._client.isConnected()) {
         this._client.send(message);
-      }
-      else {
+      } else {
         console.log('Not Connected');
       }
     });

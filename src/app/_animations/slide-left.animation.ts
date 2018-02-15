@@ -1,11 +1,11 @@
-import { trigger, transition, style, animate, state, query, group } from "@angular/animations";
+import { trigger, transition, style, animate, state, query, group } from '@angular/animations';
 
-export const SlideLeftAnimation = 
+export const SlideLeftAnimation =
     trigger('slideLeftAnimation', [
-        transition('login => signup', [    
-        query(':enter, :leave', style({ position: 'fixed', width:'100%' }),
+        transition('login => signup', [
+        query(':enter, :leave', style({ position: 'fixed', width: '100%' }),
         { optional: true}),
-        group([ 
+        group([
             query(':enter', [
             style({ transform: 'translateX(100%)' }),
             animate('0.8s ease-in-out', style({ transform: 'translateX(0%)' }))
@@ -16,10 +16,10 @@ export const SlideLeftAnimation =
         { optional: true}),
         ])
         ]),
-        transition('signup => login', [    
-            query(':enter, :leave', style({ position: 'fixed', width:'100%' }),
+        transition('signup => login', [
+            query(':enter, :leave', style({ position: 'fixed', width: '100%' }),
             { optional: true}),
-            group([ 
+            group([
                 query(':enter', [
                 style({ transform: 'translateX(-100%)' }),
                 animate('0.8s ease-in-out', style({ transform: 'translateX(0%)' }))
@@ -30,10 +30,10 @@ export const SlideLeftAnimation =
             { optional: true}),
             ])
             ]),
-        transition('login => *', [    
-            query(':enter, :leave', style({ position: 'fixed', width:'100%' }),
+        transition('login => *', [
+            query(':enter, :leave', style({ position: 'fixed', width: '100%' }),
             { optional: true}),
-            group([ 
+            group([
                 query(':enter', [
                 style({ transform: 'translateX(100%)' }),
                 animate('0.8s ease-in-out', style({ transform: 'translateX(0%)' }))
@@ -44,4 +44,4 @@ export const SlideLeftAnimation =
             { optional: true}),
             ])
             ])
-    ])
+    ]);
