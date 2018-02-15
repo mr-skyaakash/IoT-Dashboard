@@ -25,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRouting } from './app-routing.module';
 import { ErrorComponent } from './components/notFound/error/error.component';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
+import { HttpModule } from '@angular/http';
 export function highchartsFactory() {
   return require('highcharts');
 }
@@ -38,6 +39,7 @@ export function highchartsFactory() {
                 ChartModule,
                 BrowserAnimationsModule,
                 AppRouting,
+                HttpModule,
             ],
     declarations: [HeaderComponent,
             SidenavComponent,
@@ -74,7 +76,8 @@ export function highchartsFactory() {
             ChartModule,
             BrowserAnimationsModule,
                 AppRouting,
-                ErrorComponent
+                ErrorComponent,
+                HttpModule
         ],
     entryComponents: [
                 DialogComponent,

@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   email: FormControl;
   password: FormControl;
-  
+
   constructor(private service: AuthService) { }
 
   ngOnInit() {
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
       email: this.email = new FormControl('', {
         validators: [Validators.required, Validators.email]
       }),
-      password: this.password = new FormControl('',{
+      password: this.password = new FormControl('', {
         validators: [Validators.required, Validators.minLength(6)]
       })
     });

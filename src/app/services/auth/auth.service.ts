@@ -1,24 +1,36 @@
-import { Injectable } from "@angular/core";
-import { User } from "./user.model";
-import { AuthUser } from "./auth-user.model";
-import { Subject } from "rxjs/Subject";
-import { Router } from "@angular/router";
+import { Injectable } from '@angular/core';
+import { User } from './user.model';
+import { AuthUser } from './auth-user.model';
+import { Subject } from 'rxjs/Subject';
+import { Router } from '@angular/router';
+import { Http } from '@angular/http';
 
 @Injectable()
 export class AuthService {
 
-    private _user: User;
+    private _user: any;
+    private status: string;
     authChange = new Subject<boolean>();
 
-    constructor(private router: Router) {}
+    constructor(private router: Router, private http: Http) {}
 
     login(authUser: AuthUser) {
         this._user = {
-            email: authUser.email,
-            userId: Math.floor(Math.random()*1000).toString()
+            user: {
+                uname: authUser.email,
+                password: authUser.password
+            }
+        };
+        console.log(this._user);
+        this.http.post('172.16.72.32:5000/login', this._user).map(res => {
+            console.log(res);
+            this.status = res.toString();
+        });
+        if ( this.status === 'success' ) {
+            this.authChange.next(true);
+            this.router.navigate(['/']);
         }
-        this.authChange.next(true);
-        this.router.navigate(['/']);
+
     }
 
     signup(authUser: AuthUser) {
