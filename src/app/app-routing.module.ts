@@ -11,8 +11,7 @@ const route:  Routes = [
     {path: '', component: TabsComponent, canActivate:  [AuthGuard]},
     {path: 'login', component: LoginComponent, data:  { state:  'login' }},
     {path: 'signup', component: SignupComponent, data:  { state:  'signup' }},
-    
-    {path:'**',component: ErrorComponent}
+    {path: '**', component: ErrorComponent}
 ];
 
 @NgModule({

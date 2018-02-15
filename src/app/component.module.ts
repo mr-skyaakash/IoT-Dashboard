@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 import { Material } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ChartModule } from 'angular-highcharts';
+import { ChartModule } from 'angular2-highcharts';
 import { SettingsComponent } from './components/main/cards/settings/settings.component';
 import { AddDeviceService } from './services/devices/add-device.service';
 import { AuthService } from './services/auth/auth.service';
@@ -24,6 +24,10 @@ import { ModifyDeviceComponent } from './components/main/cards/settings/modify-d
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRouting } from './app-routing.module';
 import { ErrorComponent } from './components/notFound/error/error.component';
+import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
+export function highchartsFactory() {
+  return require('highcharts');
+}
 
 @NgModule({
     imports: [CommonModule,
@@ -34,7 +38,7 @@ import { ErrorComponent } from './components/notFound/error/error.component';
                 ChartModule,
                 BrowserAnimationsModule,
                 AppRouting,
-        ],
+            ],
     declarations: [HeaderComponent,
             SidenavComponent,
             CardsComponent,
@@ -81,7 +85,11 @@ import { ErrorComponent } from './components/notFound/error/error.component';
             AddDeviceService,
             AuthService,
             MqttService,
-            ConnectService
+            ConnectService,
+            {
+                provide: HighchartsStatic,
+                useFactory: highchartsFactory
+            },
         ]
 })
 export class ComponentModule {}

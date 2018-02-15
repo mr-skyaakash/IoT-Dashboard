@@ -14,10 +14,10 @@ import { NavigationEnd } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   @Output() sidenav = new EventEmitter<void>();
-  private isAuth = false;
+  isAuth = false;
   authSubscription: Subscription;
-  private doLogin = false;
-  private doSignup = false;
+  doLogin = false;
+  doSignup = false;
   private url: string;
 
   constructor(private _service: AuthService, private router: Router ) { }
@@ -29,16 +29,12 @@ export class HeaderComponent implements OnInit {
 
     this.router.events.filter( e => e instanceof NavigationEnd ).subscribe( () => {
       this.url = this.router.url;
-      if ( this.url.toString() === '/login' )
-      {
+      if ( this.url.toString() === '/login' ) {
         this.doLogin = false;
         this.doSignup = true;
-      }
-    else if ( this.url.toString() === '/signup' )
-    {
+      } else if ( this.url.toString() === '/signup' ) {
       this.doLogin = true;
       this.doSignup = false;
-
     } else {
       this.doSignup = this.doLogin = false;
     }

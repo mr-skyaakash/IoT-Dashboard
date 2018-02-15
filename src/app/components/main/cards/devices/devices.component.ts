@@ -11,7 +11,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class DevicesComponent implements OnInit, OnDestroy {
 
-  private _devices: Device[];
+  _devices: Device[];
   private _deviceSubscription: Subscription;
 
   constructor(private deviceService: AddDeviceService) {}

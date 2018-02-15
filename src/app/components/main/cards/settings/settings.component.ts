@@ -15,7 +15,7 @@ import { ModifyDeviceComponent } from './modify-device.component';
 })
 export class SettingsComponent implements OnInit, OnDestroy {
 
-  private _devices: Device[];
+  _devices: Device[];
   private _deviceSubscription: Subscription;
 
   constructor(private devices: ConnectService, private dialog: MatDialog, private deviceService: AddDeviceService) { }
@@ -31,7 +31,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     });
 
     deviceDialog.afterClosed().subscribe(result => {
-      if( result !== false ) {
+      if ( result !== false ) {
         console.log(result);
         this.deviceService.addDevice(result.name, result.topic);
       }
@@ -51,9 +51,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
     });
 
     deviceDialog.afterClosed().subscribe(result => {
-      if( result !== false ) {
+      if ( result !== false ) {
         console.log(result);
-        this.deviceService.modifyDevice(dev.id ,result.name, result.topic);
+        this.deviceService.modifyDevice(dev.id , result.name, result.topic);
       }
     });
   }

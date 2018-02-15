@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { Chart } from 'angular-highcharts';
+import { ChartComponent } from 'angular2-highcharts';
 import { MatDialog } from '@angular/material';
 import { ChatService } from '../../../../services/chat.service';
 import { MqttService } from '../../../../services/mqtt.service';
@@ -15,60 +15,77 @@ import { OnDestroy } from '@angular/core';
 })
 export class DataComponent implements OnInit, OnDestroy {
 
-  chart = new Chart({
-    chart: {
-      type: 'line'
-    },
-    title: {
-      text: 'LineChart'
-    },
-    credits: {
-      enabled: false
-    },
-    series: [{
-      name: 'Line 1',
-      data: [1, 2, 3]
-    }]
-  });
+  // chart = new ChartComponent({
+  //   chart: {
+  //     type: 'line'
+  //   },
+  //   title: {
+  //     text: 'LineChart'
+  //   },
+  //   credits: {
+  //     enabled: false
+  //   },
+  //   series: [{
+  //     name: 'Line 1',
+  //     data: [1, 2, 3]
+  //   }]
+  // });
+
+  options: any;
+  chart: any;
 
   sub: Subscription;
   newPoint: number;
 
   private message = {
-		author: 'tutorialedge',
-		message: 'this is a test message'
-  }
+    author: 'tutorialedge',
+    message: 'this is a test message'
+  };
 
-  constructor(private authService: AuthService ,private dialog: MatDialog, private chat: ChatService, private mqtt: MqttService) {
+  constructor(private authService: AuthService , private dialog: MatDialog, private chat: ChatService, private mqtt: MqttService) {
     // this.sub = this.chat.messages.subscribe( msg => {
     //   console.log("Response from websocket : " + msg.message );
     // });
+
+    this.options = {
+      chart: {
+        type: 'line'
+      },
+      title: {
+        text: 'simple chart'
+      },
+      series: [{
+        data: [1, 2, 3]
+      }]
+    };
   }
 
   ngOnInit() {
-    if(this.authService.isAuth()) {
+    if (this.authService.isAuth()) {
       this.mqtt.init();
 
       this.sub = this.mqtt.newData.subscribe( data => {
-        this.chart.addPoint(data);
+        this.chart.series[0].addPoint(data);
     });
     }
   }
 
+  saveInstance(chartInstance) {
+    this.chart = chartInstance;
+  }
+
   openDialog() {
-    const dialogRef = this.dialog.open(DialogComponent,{
+    const dialogRef = this.dialog.open(DialogComponent, {
     });
-    
     dialogRef.afterClosed().subscribe(result => {
-      if( result !== false ) {
-        
-        this.chart.addPoint(parseInt(result));
+      if ( result !== false ) {
+        this.chart.series[0].addPoint(parseInt(result, 10));
       }
     });
 
   }
 
-  
+
   // openWeb() {
   //   this.chat.messages.next(this.message);
   //   console.log("Message sent");

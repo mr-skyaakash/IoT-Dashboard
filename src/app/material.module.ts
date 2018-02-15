@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MatSidenavModule, MatToolbarModule, MatCardModule, MatListModule, MatButtonModule, MatSelectModule,
-        MatIconModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatTabsModule, MatMenuModule } from '@angular/material';
+        MatIconModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatTabsModule, 
+        MatMenuModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { WebsocketService } from './services/websocket.service';
 import { ChatService } from './services/chat.service';

@@ -3,7 +3,7 @@
     <mat-card-title>
       <h4>Graph View</h4>
     </mat-card-title>
-    <div [chart]="chart"></div>
+    <chart [options]="options" (load)="saveInstance($event.context)"></chart>
     <mat-card-content>
       <p>Some Description</p>
     </mat-card-content>
