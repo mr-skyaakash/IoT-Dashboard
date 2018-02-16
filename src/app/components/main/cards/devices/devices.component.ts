@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Device } from '../../../../services/devices/device.model';
 import { AddDeviceService } from '../../../../services/devices/add-device.service';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { DeviceService } from '../../../../services/socket-server/device.service';
 
 @Component({
   selector: 'app-devices',
@@ -14,7 +15,7 @@ export class DevicesComponent implements OnInit, OnDestroy {
   _devices: Device[];
   private _deviceSubscription: Subscription;
 
-  constructor(private deviceService: AddDeviceService) {}
+  constructor(private deviceService: AddDeviceService, private socketService: DeviceService) {}
 
   ngOnInit() {
     this._deviceSubscription = this.deviceService.devices.subscribe(deviceList => {

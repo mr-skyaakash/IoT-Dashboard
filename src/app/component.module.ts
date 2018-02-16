@@ -26,6 +26,7 @@ import { AppRouting } from './app-routing.module';
 import { ErrorComponent } from './components/notFound/error/error.component';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 import { HttpModule } from '@angular/http';
+import { DeviceService } from './services/socket-server/device.service';
 export function highchartsFactory() {
   return require('highcharts');
 }
@@ -91,8 +92,9 @@ export function highchartsFactory() {
             ConnectService,
             {
                 provide: HighchartsStatic,
-                useFactory: highchartsFactory
+                useFactory: highchartsFactory,
             },
+            DeviceService
         ]
 })
 export class ComponentModule {}
