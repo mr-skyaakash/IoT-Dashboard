@@ -9,7 +9,11 @@
 }
 
 .header {
+    /* position: fixed; */
     z-index: 9999;
     overflow: hidden;
-    box-shadow: 0px 0.5px 5px 0.5px rgb(49, 45, 45);
+}
+
+.sm-header {
+    height: 54px;
 }

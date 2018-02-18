@@ -4,7 +4,7 @@ import { io } from 'socket.io';
 @Injectable()
 export class DeviceService {
 
-  private URL = 'ws://172.16.73.41:5000';
+  private URL = 'http://192.168.43.129:5000';
 
   constructor() {
     const socket = require('socket.io-client')(this.URL, {
@@ -22,7 +22,7 @@ export class DeviceService {
   }
 
   onEvent(data) {
-    console.log('Data received : '+ data);
+    console.log('Data received : ' + data);
   }
 
   onDisconnect() {

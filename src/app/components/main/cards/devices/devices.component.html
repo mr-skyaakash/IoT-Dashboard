@@ -7,14 +7,10 @@
                 <mat-slide-toggle (change)="toggle(dev)"></mat-slide-toggle>
             </section>
         </mat-card-title>
-      </mat-card>
-      <mat-card  fxFlex.lt-sm="100%" fxFlex.sm="45" fxFlex.md="30" fxFlex.gt-md="30">
-          <mat-card-title fxLayout>
-              <span>Dummy</span>
-              <span style="flex: 1 1 auto;"></span>
-              <section>
-                  <mat-slide-toggle></mat-slide-toggle>
-              </section>
-          </mat-card-title>
-        </mat-card>
+    </mat-card>
+    <mat-card ngClass="card" fxFlex.lt-sm="100%" fxFlex.sm="45%" fxFlex.md="30%" fxFlex.gt-md="30%" *ngIf="!_devices || _devices.length==0">
+        <mat-card-title fxLayout>
+            <span>No devices added</span>
+        </mat-card-title>
+    </mat-card>
 </section>

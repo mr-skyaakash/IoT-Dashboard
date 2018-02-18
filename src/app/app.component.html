@@ -3,7 +3,7 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <app-header class="header"></app-header>
-    <main class="animation" [@slideUpAnimation]="getState(o)" >
+    <main ngClass.gt-xs="animation" ngClass.xs="sm-animation" [@slideUpAnimation]="getState(o)" >
         <router-outlet class="back" #o="outlet"></router-outlet>
     </main>
   </mat-sidenav-content>

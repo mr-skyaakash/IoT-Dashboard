@@ -35,20 +35,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         validators: [Validators.required, Validators.minLength(4)]
       })
     });
-  }
-
-  loading() {
-    this.load = true;
-    this.loginForm.disable();
-  }
-
-  stopLoading() {
-    this.load = false;
-    this.loginForm.enable();
-  }
-
-  onSubmit() {
-    this.loading();
 
     this.statusSubscription = this.service.status.subscribe(resp => {
       if ( resp !== true ) {
@@ -64,12 +50,26 @@ export class LoginComponent implements OnInit, OnDestroy {
           }
         }
     });
+  }
+
+  loading() {
+    this.load = true;
+    this.loginForm.disable();
+  }
+
+  stopLoading() {
+    this.load = false;
+    this.loginForm.enable();
+  }
+
+  onSubmit() {
+    this.loading();
 
     this.service.login( {
       email: this.email.value,
       password: this.password.value
     });
-    
+
     }
 
     ngOnDestroy() {

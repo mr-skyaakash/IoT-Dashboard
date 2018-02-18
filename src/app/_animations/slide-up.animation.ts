@@ -2,6 +2,16 @@ import { trigger, transition, style, animate, state, query, group } from '@angul
 
 export const SlideUpAnimation =
     trigger('slideUpAnimation', [
+        transition('void => signup', [
+            query(':enter', style({ position: 'fixed', width: '100%', zIndex: '1' }),
+            { optional: true}),
+            group([
+                query(':enter', [
+                style({ transform: 'translate3d(-100%,0,0)'}),
+                animate('0.8s ease-in-out', style({ transform: 'translate3d(0%,0,0)' }))
+                ], { optional: true}),
+            ])
+            ]),
         transition('login => signup', [
             query(':enter, :leave', style({ position: 'fixed', width: '100%', zIndex: '1' }),
             { optional: true}),
