@@ -4,17 +4,27 @@ import { io } from 'socket.io';
 @Injectable()
 export class DeviceService {
 
-  private URL = 'http://192.168.43.129:5000';
+  private URL = 'http://172.16.73.41:5000';
 
   constructor() {
     const socket = require('socket.io-client')(this.URL, {
       transport : ['websocket'],
+      // transportOptions: {
+      //   polling: {
+      //     extraHeaders: {
+      //       'credentials': 'false'
+      //     }
+      //   }
+      // },
+      extraHeaders: {
+        Authorization: "1234"
+      },
       credentials : 'false'
     });
     console.log(socket);
     socket.on('connect', this.onConnect.bind(this));
-    // socket.on('event', this.onEvent.bind(this));
-    // socket.on('disconnect', this.onDisconnect.bind(this));
+    socket.on('event', this.onEvent.bind(this));
+    socket.on('disconnect', this.onDisconnect.bind(this));
   }
 
   onConnect() {
