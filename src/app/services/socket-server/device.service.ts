@@ -9,16 +9,6 @@ export class DeviceService {
   constructor() {
     const socket = require('socket.io-client')(this.URL, {
       transport : ['websocket'],
-      // transportOptions: {
-      //   polling: {
-      //     extraHeaders: {
-      //       'credentials': 'false'
-      //     }
-      //   }
-      // },
-      extraHeaders: {
-        Authorization: "1234"
-      },
       credentials : 'false'
     });
     console.log(socket);
