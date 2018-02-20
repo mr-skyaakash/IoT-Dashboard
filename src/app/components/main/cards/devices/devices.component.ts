@@ -15,12 +15,14 @@ export class DevicesComponent implements OnInit, OnDestroy {
   _devices: Device[];
   private _deviceSubscription: Subscription;
 
-  constructor(private deviceService: AddDeviceService, private socketService: DeviceService) {}
+  constructor(private deviceService: AddDeviceService) {}
 
   ngOnInit() {
-    this._deviceSubscription = this.deviceService.devices.subscribe(deviceList => {
-      this._devices = deviceList;
-    });
+    // uncomment to work with flask server
+
+    // this._deviceSubscription = this.deviceService.devices.subscribe(deviceList => {
+    //   this._devices = deviceList;
+    // });
   }
 
   toggle(dev) {
@@ -28,7 +30,7 @@ export class DevicesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._deviceSubscription.unsubscribe();
+    // this._deviceSubscription.unsubscribe();
   }
 
 }

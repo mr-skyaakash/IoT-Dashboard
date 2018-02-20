@@ -18,8 +18,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
   _devices: Device[];
   private _deviceSubscription: Subscription;
 
-  constructor(private devices: ConnectService, private dialog: MatDialog, private deviceService: AddDeviceService) { }
-
+  constructor( private dialog: MatDialog, private deviceService: AddDeviceService) { }
+  // private devices: ConnectService,
   ngOnInit() {
     this._deviceSubscription = this.deviceService.devices.subscribe(deviceList => {
       this._devices = deviceList;

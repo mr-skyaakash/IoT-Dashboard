@@ -3,23 +3,41 @@
   "lang": "en",
   "name": "My IoT Dashboard",
   "scope": "/",
-  "display": "fullscreen",
+  "display": "standalone",
   "start_url": "/",
   "short_name": "IoT",
   "theme_color": "transparent",
   "description": "My IoT Dashboard",
-  "orientation": "any",
+  "orientation": "portrait-primary",
   "background_color": "transparent",
   "related_applications": [],
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "/favicon.ico",
-      "sizes": "16x16 32x32"
+      "src": "/assests/images/16-icon.png",
+      "sizes": "16x16"
     },
     {
-      "src": "/assets/images/thumbnail.png",
+      "src": "/assets/images/144-icon.png",
       "sizes": "144x144",
+      "type": "image/png",
+      "density": "0.75"
+    },
+    {
+      "src": "/assets/images/192-icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "density": "0.75"
+    },
+    {
+      "src": "/assets/images/512-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "density": "0.75"
+    },
+    {
+      "src": "/assets/images/32-icon.png",
+      "sizes": "32x23",
       "type": "image/png",
       "density": "0.75"
     }

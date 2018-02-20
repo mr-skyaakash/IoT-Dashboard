@@ -14,22 +14,6 @@ import { OnDestroy } from '@angular/core';
 })
 export class DataComponent implements OnInit, OnDestroy {
 
-  // chart = new ChartComponent({
-  //   chart: {
-  //     type: 'line'
-  //   },
-  //   title: {
-  //     text: 'LineChart'
-  //   },
-  //   credits: {
-  //     enabled: false
-  //   },
-  //   series: [{
-  //     name: 'Line 1',
-  //     data: [1, 2, 3]
-  //   }]
-  // });
-
   options: any;
   chart: any;
 
@@ -41,7 +25,7 @@ export class DataComponent implements OnInit, OnDestroy {
     message: 'this is a test message'
   };
 
-  constructor(private authService: AuthService , private dialog: MatDialog, private mqtt: MqttService) {
+  constructor(private authService: AuthService , private dialog: MatDialog) {
     this.options = {
       chart: {
         type: 'line'
@@ -57,11 +41,13 @@ export class DataComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.authService.isAuth()) {
-      this.mqtt.init();
+      // uncomment to work with MQTT service
 
-      this.sub = this.mqtt.newData.subscribe( data => {
-        this.chart.series[0].addPoint(data);
-    });
+      // this.mqtt.init();
+
+      // this.sub = this.mqtt.newData.subscribe( data => {
+      //   this.chart.series[0].addPoint(data);
+    // });
     }
   }
 
@@ -81,7 +67,7 @@ export class DataComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    // this.sub.unsubscribe();
   }
 
 }
