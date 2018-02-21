@@ -45,7 +45,6 @@ export class AppComponent implements OnInit {
     this.items = this.db.list('items').snapshotChanges()
                         .subscribe(snapshots => {
                         snapshots.forEach(snapshot => {
-                          console.log('Snapshot : ' + snapshot.payload.key);
                           this.itemsArr.push(snapshot.payload);
                         });
                       });
@@ -65,7 +64,7 @@ export class AppComponent implements OnInit {
           .then(function (currentToken) {
             if (currentToken) {
               self.pushData.to = currentToken;
-              console.log(self.pushData.to);
+              alert(self.pushData.to);
               // Set a timeout so as to enable all the data to be loaded
               setTimeout(() => {
                 if (self.checkToken(self.pushData.to, self.itemsArr) === 0) {

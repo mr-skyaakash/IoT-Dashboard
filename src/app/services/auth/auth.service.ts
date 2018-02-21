@@ -5,6 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import { Router } from '@angular/router';
 import {Headers, RequestOptions, Http} from '@angular/http';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
+import { ClientRoleService } from './client-role.service';
 @Injectable()
 export class AuthService {
 
@@ -24,29 +25,37 @@ export class AuthService {
                 password: authUser.password
             }
         };
-            this.http.post('http://172.16.73.32:5000/login', JSON.stringify(user), options).subscribe(res => {
-                if ( res.status === 200 ) {
-                    this.authChange.next(true);
-                    this.router.navigate(['/']);
-                    this._user = user;
-                    this.status.next(true);
-                }
-            }, (err: HttpErrorResponse) => {
-                if ( err.status === 401 ) {
-                    this.status.next(false);
-                } else {
-                    this.status.next('error');
-                }
-            });
+            // this.http.post('http://172.16.73.32:5000/login', JSON.stringify(user), options).subscribe(res => {
+            //     if ( res.status === 200 ) {
+            //         this.authChange.next(true);
+            //         this.router.navigate(['/']);
+            //         this._user = user;
+            //         this.status.next(true);
+            //     }
+            // }, (err: HttpErrorResponse) => {
+            //     if ( err.status === 401 ) {
+            //         this.status.next(false);
+            //     } else {
+            //         this.status.next('error');
+            //     }
+            // });
+        this.authChange.next(true);
+        this.router.navigate(['/']);
+        this._user = user;
+        this.status.next(true);
     }
 
     signup(authUser: AuthUser) {
-        this._user = {
-            email: authUser.email,
-            userId: Math.floor(Math.random() * 1000).toString()
+        const user = {
+            user: {
+                uname: authUser.email,
+                password: authUser.password
+            }
         };
         this.authChange.next(true);
         this.router.navigate(['/']);
+        this._user = user;
+        this.status.next(true);
     }
 
     logout() {

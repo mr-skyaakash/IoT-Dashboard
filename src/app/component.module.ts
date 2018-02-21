@@ -33,6 +33,7 @@ import { environment } from '../environments/environment';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { MessagingService } from './services/push-notify/messaging.service';
 import { PushService } from './services/push-notify/push.service';
+import { ClientRoleService } from './services/auth/client-role.service';
 export function highchartsFactory() {
   return require('highcharts');
 }
@@ -108,7 +109,8 @@ firebase.initializeApp(environment.firebase);
             },
             DeviceService,
             MessagingService,
-            PushService
+            PushService,
+            ClientRoleService
         ]
 })
 export class ComponentModule {}
