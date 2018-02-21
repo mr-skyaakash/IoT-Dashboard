@@ -27,9 +27,17 @@ import { ErrorComponent } from './components/notFound/error/error.component';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 import { HttpModule } from '@angular/http';
 import { DeviceService } from './services/socket-server/device.service';
+import { AngularFireModule } from 'angularfire2';
+import * as firebase from 'firebase';
+import { environment } from '../environments/environment';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { MessagingService } from './services/push-notify/messaging.service';
+import { PushService } from './services/push-notify/push.service';
 export function highchartsFactory() {
   return require('highcharts');
 }
+
+firebase.initializeApp(environment.firebase);
 
 @NgModule({
     imports: [CommonModule,
@@ -41,6 +49,8 @@ export function highchartsFactory() {
                 BrowserAnimationsModule,
                 AppRouting,
                 HttpModule,
+                AngularFireDatabaseModule,
+                AngularFireModule.initializeApp(environment.firebase)
             ],
     declarations: [HeaderComponent,
             SidenavComponent,
@@ -76,9 +86,11 @@ export function highchartsFactory() {
             FlexLayoutModule,
             ChartModule,
             BrowserAnimationsModule,
-                AppRouting,
-                ErrorComponent,
-                HttpModule
+            AppRouting,
+            ErrorComponent,
+            HttpModule,
+            AngularFireDatabaseModule,
+            AngularFireModule
         ],
     entryComponents: [
                 DialogComponent,
@@ -94,7 +106,9 @@ export function highchartsFactory() {
                 provide: HighchartsStatic,
                 useFactory: highchartsFactory,
             },
-            DeviceService
+            DeviceService,
+            MessagingService,
+            PushService
         ]
 })
 export class ComponentModule {}
