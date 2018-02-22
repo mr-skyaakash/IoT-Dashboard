@@ -24,7 +24,6 @@ export class TabsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    
   }
 
 }

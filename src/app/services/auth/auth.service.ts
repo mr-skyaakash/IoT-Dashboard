@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import {Headers, RequestOptions, Http} from '@angular/http';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { ClientRoleService } from './client-role.service';
+import { DeviceService } from '../socket-server/device.service';
 @Injectable()
 export class AuthService {
 
@@ -13,7 +14,7 @@ export class AuthService {
     status = new Subject<any>();
     authChange = new Subject<boolean>();
 
-    constructor(private router: Router, private http: Http) {}
+    constructor(private router: Router, private http: Http, private deviceServer: DeviceService) {}
 
     login(authUser: AuthUser) {
         const header = new Headers({'Access-Control-Allow-Origin': '*',
@@ -22,10 +23,11 @@ export class AuthService {
         const user = {
             user: {
                 uname: authUser.email,
-                password: authUser.password
+                password: authUser.password,
+                urole: 'admin'
             }
         };
-            this.http.post('https://192.168.100.7:5500/login', JSON.stringify(user), options).subscribe(res => {
+            this.http.post('http://192.168.100.11:5500/login', JSON.stringify(user), options).subscribe(res => {
                 if ( res.status === 200 ) {
                     this.authChange.next(true);
                     this.router.navigate(['/']);
@@ -62,6 +64,7 @@ export class AuthService {
         this._user = null;
         this.authChange.next(false);
         this.router.navigate(['/login']);
+        this.deviceServer.disconnect();
     }
 
     isAuth() {

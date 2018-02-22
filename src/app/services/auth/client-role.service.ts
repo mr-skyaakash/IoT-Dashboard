@@ -11,7 +11,7 @@ export class ClientRoleService {
     }
 
     isAdmin(user) {
-        for( let item in this.userList) {
+        for ( let item in this.userList) {
             if ( this.userList[item].urole === 'admin' && this.userList[item].uname === user.user.uname ) {
                 return true;
             }

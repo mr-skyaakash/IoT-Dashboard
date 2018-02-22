@@ -1,6 +1,6 @@
 export class Device {
-    name: string;
-    topic: string;
-    id: number;
-    active: boolean;
+    devName: string;
+    devTopic: string;
+    devId: number;
+    devState: boolean;
 }
