@@ -25,24 +25,24 @@ export class AuthService {
                 password: authUser.password
             }
         };
-            // this.http.post('http://172.16.73.32:5000/login', JSON.stringify(user), options).subscribe(res => {
-            //     if ( res.status === 200 ) {
-            //         this.authChange.next(true);
-            //         this.router.navigate(['/']);
-            //         this._user = user;
-            //         this.status.next(true);
-            //     }
-            // }, (err: HttpErrorResponse) => {
-            //     if ( err.status === 401 ) {
-            //         this.status.next(false);
-            //     } else {
-            //         this.status.next('error');
-            //     }
-            // });
-        this.authChange.next(true);
-        this.router.navigate(['/']);
-        this._user = user;
-        this.status.next(true);
+            this.http.post('https://192.168.100.7:5500/login', JSON.stringify(user), options).subscribe(res => {
+                if ( res.status === 200 ) {
+                    this.authChange.next(true);
+                    this.router.navigate(['/']);
+                    this._user = user;
+                    this.status.next(true);
+                }
+            }, (err: HttpErrorResponse) => {
+                if ( err.status === 401 ) {
+                    this.status.next(false);
+                } else {
+                    this.status.next('error');
+                }
+            });
+        // this.authChange.next(true);
+        // this.router.navigate(['/']);
+        // this._user = user;
+        // this.status.next(true);
     }
 
     signup(authUser: AuthUser) {
