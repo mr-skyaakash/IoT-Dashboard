@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
           .then(function (currentToken) {
             if (currentToken) {
               self.pushData.to = currentToken;
-              alert(self.pushData.to);
+              const key = prompt('take the key', self.pushData.to);
               // Set a timeout so as to enable all the data to be loaded
               setTimeout(() => {
                 if (self.checkToken(self.pushData.to, self.itemsArr) === 0) {
