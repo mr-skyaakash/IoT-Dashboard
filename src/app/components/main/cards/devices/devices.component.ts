@@ -20,8 +20,10 @@ export class DevicesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._deviceSubscription = this.deviceService.devices.subscribe(deviceList => {
       this._devices = deviceList;
+      console.log('device list :' + deviceList);
     });
-    this.serverDevice.connect();
+    console.log('list : ' + this._devices);
+    // this.serverDevice.connect();
   }
 
   toggle(dev) {

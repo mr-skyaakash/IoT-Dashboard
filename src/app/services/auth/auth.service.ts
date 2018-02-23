@@ -7,6 +7,8 @@ import {Headers, RequestOptions, Http} from '@angular/http';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { ClientRoleService } from './client-role.service';
 import { DeviceService } from '../socket-server/device.service';
+import * as moment from 'moment';
+
 @Injectable()
 export class AuthService {
 
@@ -21,18 +23,17 @@ export class AuthService {
                                 'content-type': 'application/json'});
         const options = new RequestOptions({headers: header});
         const user = {
-            user: {
-                uname: authUser.email,
-                password: authUser.password,
-                urole: 'admin'
-            }
+                email: authUser.email,
+                password: authUser.password
         };
-            this.http.post('http://192.168.100.11:5500/login', JSON.stringify(user), options).subscribe(res => {
+            this.http.post('http://172.16.73.32:5000/auth/login', JSON.stringify(user), options).subscribe(res => {
                 if ( res.status === 200 ) {
                     this.authChange.next(true);
                     this.router.navigate(['/']);
                     this._user = user;
                     this.status.next(true);
+                    console.log(res);
+                    this.setSession(res);
                 }
             }, (err: HttpErrorResponse) => {
                 if ( err.status === 401 ) {
@@ -60,18 +61,35 @@ export class AuthService {
         this.status.next(true);
     }
 
+    private setSession(res) {
+        const expiresAt = moment().add(res.expiresIn, 'second');
+
+        localStorage.setItem('token_id', res.token);
+        localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()) );
+    }
+
+    getExpiration() {
+        const expiration = localStorage.getItem('expires_at');
+        const expiresAt = JSON.parse(expiration);
+        return expiresAt;
+    }
+
     logout() {
         this._user = null;
         this.authChange.next(false);
         this.router.navigate(['/login']);
         this.deviceServer.disconnect();
+        localStorage.removeItem('token');
+        localStorage.removeItem('expires_at');
     }
 
     isAuth() {
-        if ( this._user === undefined || this._user === null ) {
-            return false;
-        }
-        return true;
+        // if ( this._user === undefined || this._user === null ) {
+        //     return false;
+        // }
+        // return true;
+
+        return moment().isBefore(this.getExpiration());
     }
 
     getUser() {

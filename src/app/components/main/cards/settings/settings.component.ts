@@ -15,7 +15,7 @@ import { ModifyDeviceComponent } from './modify-device.component';
 })
 export class SettingsComponent implements OnInit, OnDestroy {
 
-  _devices: Device[];
+  _devices = new Array<Device>();
   private _deviceSubscription: Subscription;
 
   constructor( private dialog: MatDialog, private deviceService: AddDeviceService) { }
@@ -23,6 +23,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._deviceSubscription = this.deviceService.devices.subscribe(deviceList => {
       this._devices = deviceList;
+      console.log(deviceList);
     });
   }
 
@@ -36,24 +37,25 @@ export class SettingsComponent implements OnInit, OnDestroy {
         this.deviceService.addDevice(result.name, result.topic);
       }
     });
+    console.log(this._devices);
   }
 
   remove(dev) {
-    this.deviceService.removeDevice(dev.id);
+    this.deviceService.removeDevice(dev.devId);
   }
 
   modify(dev) {
     const deviceDialog = this.dialog.open(ModifyDeviceComponent, {
       data: {
-        name: dev.name,
-        topic: dev.topic
+        name: dev.devName,
+        topic: dev.devTopic
       }
     });
 
     deviceDialog.afterClosed().subscribe(result => {
       if ( result !== false ) {
         console.log(result);
-        this.deviceService.modifyDevice(dev.id , result.name, result.topic);
+        this.deviceService.modifyDevice(dev.devId , result.name, result.topic);
       }
     });
   }

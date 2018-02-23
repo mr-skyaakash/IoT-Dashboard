@@ -34,6 +34,9 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { MessagingService } from './services/push-notify/messaging.service';
 import { PushService } from './services/push-notify/push.service';
 import { ClientRoleService } from './services/auth/client-role.service';
+import { MomentModule } from 'angular2-moment';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ClientInterceptor } from './services/auth/client.interceptor';
 export function highchartsFactory() {
   return require('highcharts');
 }
@@ -51,7 +54,8 @@ firebase.initializeApp(environment.firebase);
                 AppRouting,
                 HttpModule,
                 AngularFireDatabaseModule,
-                AngularFireModule.initializeApp(environment.firebase)
+                AngularFireModule.initializeApp(environment.firebase),
+                MomentModule
             ],
     declarations: [HeaderComponent,
             SidenavComponent,
@@ -91,7 +95,8 @@ firebase.initializeApp(environment.firebase);
             ErrorComponent,
             HttpModule,
             AngularFireDatabaseModule,
-            AngularFireModule
+            AngularFireModule,
+            MomentModule
         ],
     entryComponents: [
                 DialogComponent,
@@ -106,6 +111,11 @@ firebase.initializeApp(environment.firebase);
             {
                 provide: HighchartsStatic,
                 useFactory: highchartsFactory,
+            },
+            {
+                provide: HTTP_INTERCEPTORS,
+                useClass: ClientInterceptor,
+                multi: true
             },
             DeviceService,
             MessagingService,
