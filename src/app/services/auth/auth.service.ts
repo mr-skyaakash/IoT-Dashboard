@@ -26,11 +26,11 @@ export class AuthService {
                 email: authUser.email,
                 password: authUser.password
         };
+        console.log('login');
             this.http.post('http://172.16.73.32:5000/auth/login', JSON.stringify(user), options).subscribe(res => {
                 if ( res.status === 200 ) {
                     this.authChange.next(true);
                     this.router.navigate(['/']);
-                    this._user = user;
                     this.status.next(true);
                     console.log(res);
                     this.setSession(res);
@@ -62,8 +62,8 @@ export class AuthService {
     }
 
     private setSession(res) {
-        const expiresAt = moment().add(res.expiresIn, 'second');
-
+        const expiresAt = moment().add(10000, 'second');
+        console.log(res.auth_token)
         localStorage.setItem('token_id', res.token);
         localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()) );
     }
@@ -75,6 +75,7 @@ export class AuthService {
     }
 
     logout() {
+        console.log(localStorage.getItem('token'));
         this._user = null;
         this.authChange.next(false);
         this.router.navigate(['/login']);
@@ -93,6 +94,6 @@ export class AuthService {
     }
 
     getUser() {
-        return {...this._user};
+        // return {...this._user};
     }
 }
