@@ -31,12 +31,11 @@ import { AngularFireModule } from 'angularfire2';
 import * as firebase from 'firebase';
 import { environment } from '../environments/environment';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { MessagingService } from './services/push-notify/messaging.service';
 import { PushService } from './services/push-notify/push.service';
-import { ClientRoleService } from './services/auth/client-role.service';
 import { MomentModule } from 'angular2-moment';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ClientInterceptor } from './services/auth/client.interceptor';
+import 'hammerjs';
 export function highchartsFactory() {
   return require('highcharts');
 }
@@ -118,9 +117,7 @@ firebase.initializeApp(environment.firebase);
                 multi: true
             },
             DeviceService,
-            MessagingService,
             PushService,
-            ClientRoleService
         ]
 })
 export class ComponentModule {}

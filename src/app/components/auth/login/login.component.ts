@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material';
 import { OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   load =  false;
   statusSubscription: Subscription;
 
-  constructor(private service: AuthService, private snackBar: MatSnackBar) { }
+  constructor(private service: AuthService, private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -60,6 +61,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   stopLoading() {
     this.load = false;
     this.loginForm.enable();
+  }
+
+  swipe() {
+    console.log('Swipe-up');
+    this.router.navigate(['/signup']);
   }
 
   onSubmit() {

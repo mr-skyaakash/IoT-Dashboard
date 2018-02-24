@@ -14,12 +14,16 @@ import { SlideUpAnimation } from '../../../_animations/slide-up.animation';
 export class SignupComponent implements OnInit {
 
   loginForm: FormGroup;
+  name: FormControl;
   email: FormControl;
   password: FormControl;
   constructor(private service: AuthService) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
+      name: this.name = new FormControl('', {
+        validators: [Validators.required]
+      }),
       email: this.email = new FormControl('', {
         validators: [Validators.required, Validators.email]
       }),
@@ -31,6 +35,7 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     this.service.signup( {
+      name: this.name.value,
       email: this.email.value,
       password: this.password.value
     });

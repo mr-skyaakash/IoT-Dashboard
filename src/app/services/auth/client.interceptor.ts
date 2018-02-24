@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class ClientInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token_id');
 
         if (token) {
             const cloned = req.clone({
@@ -13,6 +13,7 @@ export class ClientInterceptor implements HttpInterceptor {
             });
             return next.handle(cloned);
         } else {
+            console.log('Token not found');
             return next.handle(req);
         }
     }
