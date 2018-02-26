@@ -29,7 +29,6 @@ export class AuthService {
         console.log('login');
             this.http.post('http://172.16.73.32:5000/auth/login', JSON.stringify(user), options).subscribe(res => {
                 if ( res.status === 200 ) {
-                    this.authChange.next(true);
                     this.router.navigate(['/']);
                     this.status.next(true);
                     // this._isAdmin = true;
@@ -56,9 +55,9 @@ export class AuthService {
                 password: signupUser.password
             }
         };
-        this.authChange.next(true);
         this.router.navigate(['/']);
         this.status.next(true);
+        this._isAdmin = true;
     }
 
     private setSession(res) {
@@ -88,8 +87,12 @@ export class AuthService {
         //     return false;
         // }
         // return true;
+        if (moment().isBefore(this.getExpiration())) {
+            this.authChange.next(true);
+            return true;
+        }
+        return false;
 
-        return moment().isBefore(this.getExpiration());
     }
 
     getUserRole() {
