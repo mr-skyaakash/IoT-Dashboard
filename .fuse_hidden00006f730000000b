@@ -1,0 +1,76 @@
+[debug] [2018-02-19T17:44:34.876Z] ----------------------------------------------------------------------
+[debug] [2018-02-19T17:44:34.878Z] Command:       /usr/bin/node /usr/bin/firebase serve
+[debug] [2018-02-19T17:44:34.879Z] CLI Version:   3.17.4
+[debug] [2018-02-19T17:44:34.879Z] Platform:      linux
+[debug] [2018-02-19T17:44:34.879Z] Node Version:  v9.5.0
+[debug] [2018-02-19T17:44:34.879Z] Time:          Mon Feb 19 2018 23:14:34 GMT+0530 (IST)
+[debug] [2018-02-19T17:44:34.879Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-02-19T17:44:34.985Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-02-19T17:44:34.985Z] > authorizing via signed-in user
+[debug] [2018-02-19T17:44:34.987Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/what-we-do-55cf9  
+  
+ Mon Feb 19 2018 23:14:34 GMT+0530 (IST)
+[debug] [2018-02-19T17:44:37.137Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-19T17:44:37.138Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/what-we-do-55cf9/tokens  
+  
+ Mon Feb 19 2018 23:14:37 GMT+0530 (IST)
+[debug] [2018-02-19T17:44:38.269Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/media/aakash/New Volume/Projects/Web Dev/Angular/CDI/CDI'...
+[info] 
+[debug] [2018-02-19T17:44:38.276Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/what-we-do-55cf9  
+  
+ Mon Feb 19 2018 23:14:38 GMT+0530 (IST)
+[debug] [2018-02-19T17:44:40.113Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-19T17:44:40.114Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/6226061394/clients/_:getWebAppConfig  
+  
+ Mon Feb 19 2018 23:14:40 GMT+0530 (IST)
+[debug] [2018-02-19T17:44:41.297Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: dist
+[info] ✔  hosting: Local server: http://localhost:5000
+
+[debug] [2018-02-19T17:54:46.145Z] ----------------------------------------------------------------------
+[debug] [2018-02-19T17:54:46.148Z] Command:       /usr/bin/node /usr/bin/firebase deploy
+[debug] [2018-02-19T17:54:46.148Z] CLI Version:   3.17.4
+[debug] [2018-02-19T17:54:46.149Z] Platform:      linux
+[debug] [2018-02-19T17:54:46.149Z] Node Version:  v9.5.0
+[debug] [2018-02-19T17:54:46.149Z] Time:          Mon Feb 19 2018 23:24:46 GMT+0530 (IST)
+[debug] [2018-02-19T17:54:46.149Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-02-19T17:54:46.193Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-02-19T17:54:46.193Z] > authorizing via signed-in user
+[debug] [2018-02-19T17:54:46.195Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/what-we-do-55cf9  
+  
+ Mon Feb 19 2018 23:24:46 GMT+0530 (IST)
+[debug] [2018-02-19T17:54:47.887Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-19T17:54:47.889Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/what-we-do-55cf9/tokens  
+  
+ Mon Feb 19 2018 23:24:47 GMT+0530 (IST)
+[debug] [2018-02-19T17:54:48.932Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'what-we-do-55cf9'...
+[info] 
+[info] i  deploying hosting
+[info] i  hosting: preparing dist directory for upload...
+[debug] [2018-02-19T17:54:50.967Z] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/what-we-do-55cf9/uploads/-L5jC2WMsUBAjcl2GY-V?fileCount=16&message=  
+  
+ Mon Feb 19 2018 23:24:50 GMT+0530 (IST)
+[debug] [2018-02-19T17:55:24.887Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-19T17:55:24.888Z] [hosting] .tgz uploaded successfully, waiting for extraction
+[info] ✔  hosting: 16 files uploaded successfully
+[debug] [2018-02-19T17:55:25.789Z] >>> HTTP REQUEST POST https://deploy.firebase.com/v1/projects/what-we-do-55cf9/releases  
+ { hosting: 
+   { public: 'dist',
+     ignore: [ 'firebase.json', '**/.*', '**/node_modules/**' ],
+     rewrites: [ [Object] ],
+     version: '-L5jC2WMsUBAjcl2GY-V',
+     prefix: '-L5jC2WMsUBAjcl2GY-V/',
+     manifest: [] } } 
+ Mon Feb 19 2018 23:25:25 GMT+0530 (IST)
+[debug] [2018-02-19T17:55:27.726Z] <<< HTTP RESPONSE 200
+[info] 
+[info] ✔  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/what-we-do-55cf9/overview
+[info] Hosting URL: https://what-we-do-55cf9.firebaseapp.com

@@ -1,0 +1,23 @@
+.fill {
+    flex: 1 1 auto;
+}
+
+.logo {
+    padding-left: 10px;
+    cursor: pointer;
+    outline-style: none;
+}
+
+.header {
+    /* position: fixed; */
+    z-index: 9998;
+    overflow: hidden;
+}
+
+.over-header {
+    z-index: 9999;
+}
+
+/* .sm-header {
+    height: 54px;
+} */

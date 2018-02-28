@@ -1,0 +1,9 @@
+.card-list {
+    padding: 30px;
+}
+
+.button-float {
+    position: absolute;
+    transform: translate(550%,-80%);
+    max-width: 60%;
+}

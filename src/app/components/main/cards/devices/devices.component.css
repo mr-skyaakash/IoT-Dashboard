@@ -1,0 +1,11 @@
+.card-list {
+    padding: 25px;
+}
+
+.move-right {
+    flex-direction: row-reverse
+}
+
+.card {
+    margin-top: 10px;
+}

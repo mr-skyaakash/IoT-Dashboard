@@ -1,0 +1,88 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://www.google.com/design/spec/style/color.html
+$candy-app-primary: mat-palette($mat-blue, 500, 300, 700);
+$candy-app-accent:  mat-palette($mat-amber, A400, A200, A700);
+
+// The warn palette is optional (defaults to red).A400, A200, A700
+$candy-app-warn:    mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($candy-app-theme);
+
+.loading {
+    opacity: 0;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: #2E3F50;
+    padding-top: 25vh;
+    text-align: center;
+    z-index: -1;
+    transition: opacity 0.8s ease-out;
+}
+
+app-root:empty + .loading {
+  opacity: 1;
+  z-index: 100;
+  h1 {
+    font-family: "Roboto", sans-serif;
+    color: #EEE;
+    margin-bottom: 50px;
+  }
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+  
+    position: relative;
+    margin: 100px auto;
+  }
+  
+    .double-bounce1, .double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+    animation: sk-bounce 2.0s infinite ease-in-out;
+    }
+
+    .double-bounce2 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+    }
+
+    @-webkit-keyframes sk-bounce {
+    0%, 100% { -webkit-transform: scale(0.0) }
+    50% { -webkit-transform: scale(1.0) }
+    }
+
+    @keyframes sk-bounce {
+    0%, 100% { 
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    } 50% { 
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+    }
+}

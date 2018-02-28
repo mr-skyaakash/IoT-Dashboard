@@ -1,0 +1,16 @@
+<section [@slide] ngClass="card-list" fxLayout fxLayout.lt-sm="column" fxLayoutAlign.gt-xs="space-evenly center" fxLayoutGap.sm="10px" fxLayoutGap.md="10px" fxLayoutWrap>
+    <mat-card ngClass="card" fxFlex.lt-sm="100%" fxFlex.sm="45%" fxFlex.md="30%" fxFlex.gt-md="30%" *ngFor="let dev of _devices">
+        <mat-card-title fxLayout>
+            <span>{{dev.devName}}</span>
+            <span style="flex: 1 1 auto;"></span>
+            <section>
+                <mat-slide-toggle (change)="toggle(dev)"></mat-slide-toggle>
+            </section>
+        </mat-card-title>
+    </mat-card>
+    <mat-card ngClass="card" fxFlex.lt-sm="100%" fxFlex.sm="45%" fxFlex.md="30%" fxFlex.gt-md="30%" *ngIf="!_devices || _devices.length==0">
+        <mat-card-title fxLayout>
+            <span>No devices added</span>
+        </mat-card-title>
+    </mat-card>
+</section>

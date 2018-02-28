@@ -1,0 +1,7 @@
+.card-layout {
+    height: calc(100vh - 64px);
+}
+
+.card-layout-sm {
+    height: calc(100vh - 56px);
+}
