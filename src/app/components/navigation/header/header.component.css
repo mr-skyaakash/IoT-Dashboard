@@ -10,8 +10,12 @@
 
 .header {
     /* position: fixed; */
-    z-index: 9999;
+    z-index: 9998;
     overflow: hidden;
+}
+
+.over-header {
+    z-index: 9999;
 }
 
 /* .sm-header {

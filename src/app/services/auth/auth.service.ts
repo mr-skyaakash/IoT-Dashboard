@@ -57,7 +57,6 @@ export class AuthService {
         };
         this.router.navigate(['/']);
         this.status.next(true);
-        this._isAdmin = true;
     }
 
     private setSession(res) {
@@ -86,12 +85,15 @@ export class AuthService {
         // if ( this._user === undefined || this._user === null ) {
         //     return false;
         // }
-        // return true;
-        if (moment().isBefore(this.getExpiration())) {
-            this.authChange.next(true);
-            return true;
-        }
-        return false;
+        this.authChange.next(true);
+        this._isAdmin = true;
+        return true;
+        // if (moment().isBefore(this.getExpiration())) {
+        //     this.authChange.next(true);
+        //     this._isAdmin = true;
+        //     return true;
+        // }
+        // return false;
 
     }
 

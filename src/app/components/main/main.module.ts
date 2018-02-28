@@ -14,6 +14,7 @@ import { ChartModule } from 'angular2-highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 import { AppRouting } from '../../app-routing.module';
 import { HttpModule } from '@angular/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 export function highchartsFactory() {
@@ -27,6 +28,7 @@ export function highchartsFactory() {
         ChartModule,
         AppRouting,
         HttpModule,
+        FlexLayoutModule
     ],
     declarations: [
         TabsComponent,

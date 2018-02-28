@@ -1,7 +1,7 @@
 <mat-toolbar class="header" ngClass.xs="sm-header" color="primary">
     <span class="logo" routerLink="/">Logo</span>
     <span class="fill"></span>
-    <mat-menu [overlapTrigger]="false" #listOptions="matMenu">
+    <mat-menu [overlapTrigger]="false" class="over-header" #listOptions="matMenu">
         <button *ngIf="doLogin" routerLink="/login" mat-menu-item>Login</button>
         <button *ngIf="doSignup" routerLink="/signup" mat-menu-item>Signup</button>
         <button *ngIf="isAuth" (click)="onLogout()" mat-menu-item>Logout</button>

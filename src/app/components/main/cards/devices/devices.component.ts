@@ -4,11 +4,13 @@ import { Device } from '../../../../services/devices/device.model';
 import { AddDeviceService } from '../../../../services/devices/add-device.service';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { DeviceService } from '../../../../services/socket-server/device.service';
+import { MainSlideAnimation } from '../../../../_animations/main-slide.animation';
 
 @Component({
   selector: 'app-devices',
   templateUrl: './devices.component.html',
-  styleUrls: ['./devices.component.css']
+  styleUrls: ['./devices.component.css'],
+  animations: [ MainSlideAnimation ]
 })
 export class DevicesComponent implements OnInit, OnDestroy {
 

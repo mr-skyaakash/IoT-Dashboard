@@ -23,6 +23,7 @@ import { AuthModule } from './components/auth/auth.module';
 import { MainModule } from './components/main/main.module';
 import { NavigationModule } from './components/navigation/navigation.module';
 import { NotFoundModule } from './components/notFound/not-found.module';
+import { SidenavMainService } from './services/sidenav-main/sidenav-main.service';
 
 firebase.initializeApp(environment.firebase);
 
@@ -67,6 +68,7 @@ firebase.initializeApp(environment.firebase);
         },
         DeviceService,
         PushService,
+        SidenavMainService,
         ]
 })
 export class ComponentModule {}

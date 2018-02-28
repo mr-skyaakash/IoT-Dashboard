@@ -5,6 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import * as firebase from 'firebase';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { PushService } from './services/push-notify/push.service';
+import { AuthService } from './services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
   itemsArr: Array<any>;
   items: any;
   messaging: any;
+  isAuth = false;
 
   pushData: any = {
     'notification': {
@@ -28,7 +30,7 @@ export class AppComponent implements OnInit {
 
   outlet: RouterOutlet;
 
-  constructor(private db: AngularFireDatabase, private pushService: PushService) {
+  constructor(private db: AngularFireDatabase, private pushService: PushService, private authService: AuthService) {
     this.messaging = firebase.messaging();
 
     this.messaging.onTokenRefresh(function () {
@@ -39,6 +41,10 @@ export class AppComponent implements OnInit {
         .catch(function (err) {
           console.log('Unable to retrieve refreshed token ', err);
         });
+    });
+
+    this.authService.authChange.subscribe( auth => {
+      this.isAuth = auth;
     });
 
     this.itemsArr = [];  // Reinitialize the array to prevent data duplication

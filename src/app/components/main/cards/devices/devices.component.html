@@ -1,4 +1,4 @@
-<section ngClass="card-list" fxLayout fxLayout.lt-sm="column" fxLayoutAlign.gt-xs="space-evenly center" fxLayoutGap.sm="10px" fxLayoutGap.md="10px" fxLayoutWrap>
+<section [@slide] ngClass="card-list" fxLayout fxLayout.lt-sm="column" fxLayoutAlign.gt-xs="space-evenly center" fxLayoutGap.sm="10px" fxLayoutGap.md="10px" fxLayoutWrap>
     <mat-card ngClass="card" fxFlex.lt-sm="100%" fxFlex.sm="45%" fxFlex.md="30%" fxFlex.gt-md="30%" *ngFor="let dev of _devices">
         <mat-card-title fxLayout>
             <span>{{dev.devName}}</span>

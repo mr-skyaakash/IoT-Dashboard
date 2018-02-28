@@ -1,10 +1,13 @@
-<mat-sidenav-container>
-  <mat-sidenav>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <app-header class="header"></app-header>
-    <main ngClass.gt-xs="animation" ngClass.xs="sm-animation" [@slideUpAnimation]="getState(o)" >
-        <router-outlet #o="outlet"></router-outlet>
-    </main>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<section class="box">
+  <app-header class="header"></app-header>
+  <mat-sidenav-container ngClass.xs="sidenav-xs" ngClass.gt-xs="box">
+    <mat-sidenav  mode="side" opened="true" class="sidenav" *ngIf="isAuth">
+      <app-sidenav></app-sidenav>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <main ngClass.gt-xs="animation" ngClass.xs="sm-animation" [@slideUpAnimation]="getState(o)" >
+          <router-outlet #o="outlet"></router-outlet>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</section>

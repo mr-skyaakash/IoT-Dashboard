@@ -2,3 +2,23 @@
     display: inline-block;
     padding-left: 5px;
 }
+
+mat-list-item {
+    transition: all 0.2s ease-in-out;
+}
+
+.item-select {
+    background-color: #219FFF;
+    color: white;
+    font-size: 120%;
+}
+
+.item-select .item:hover {
+    background-color: #219FFF;
+    color: black
+}
+
+.item:hover {
+    background-color: #e3f2fd;
+    color: black;
+}

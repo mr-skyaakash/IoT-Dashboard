@@ -1,17 +1,14 @@
 <mat-nav-list>
-    <mat-list-item>
-      <mat-icon>build</mat-icon><span class="nav-caption" routerLink="/login">Item 1</span>
+    <mat-list-item [ngClass]="{'item': true, 'item-select': arr[0]}" (click)="select(0)"  cdkFocusRegionStart>
+      <mat-icon>build</mat-icon><span class="nav-caption">Devices</span>
     </mat-list-item>
-    <mat-list-item>
-        <mat-icon>build</mat-icon><span class="nav-caption" cdkFocusInitial>Item 2</span>
+    <mat-list-item [ngClass]="{'item': true, 'item-select': arr[1]}" (click)="select(1)" cdkFocusInitial>
+        <mat-icon>build</mat-icon><span class="nav-caption">Data</span>
     </mat-list-item>
-    <mat-list-item>
-        <mat-icon>build</mat-icon><span class="nav-caption">Item 3</span>
+    <mat-list-item [ngClass]="{'item': true, 'item-select': arr[2]}" (click)="select(2)">
+        <mat-icon>build</mat-icon><span class="nav-caption">Admin</span>
     </mat-list-item>
-    <mat-list-item>
-        <mat-icon>build</mat-icon><span class="nav-caption">Item 4</span>
-    </mat-list-item>
-    <mat-list-item>
-        <mat-icon>build</mat-icon><span class="nav-caption">Item 5</span>
+    <mat-list-item [ngClass]="{'item': true, 'item-select': arr[3]}" (click)="select(3)"  cdkFocusRegionEnd>
+        <mat-icon>build</mat-icon><span class="nav-caption">Settings</span>
     </mat-list-item>
   </mat-nav-list>

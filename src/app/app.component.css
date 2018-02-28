@@ -1,37 +1,59 @@
-mat-sidenav-container, mat-sidenav, mat-sidenav-content {
+.box {
+    display: flex;
+    flex-flow: column;
     height: 100%;
 }
+
+mat-sidenav-container {
+    flex: 1 1 auto;
+}
+
+mat-sidenav-content {
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+.animation {
+    
+    z-index: -9999;
+}
+
+.sidenav {
+    box-shadow: 0px 3px 1px 0.5px rgb(49, 45, 45);
+}
+
+/* .sidenav {
+    top: 64px;
+}
+
+.sidenav-xs {
+    top: 56px;
+} */
 
 mat-sidenav {
     width: 200px;
 }
 
-.animation {
-    top: 64px;
-    overflow: hidden;
-    z-index: -9999;
-}
 
 .header {
-    top: 0;
-    position: absolute;
+    flex: 0 0 auto;
     width: 100%;
-    z-index: 9999 !important;
+    z-index: 99 !important;
     overflow: hidden !important;
     scroll-behavior: smooth;
     box-shadow: 0px 1px 5px 0.5px rgb(49, 45, 45);
 }
 
 .sm-animation {
-    top: 56px;
-    overflow: hidden;
+
+    overflow: auto;
     z-index: -9999;
 }
 
-.header + .animation {
+/* .header + .animation {
     padding-top: 64px;
 }
 
 .header + .sm-animation {
     padding-top: 56px; 
-}
+} */
