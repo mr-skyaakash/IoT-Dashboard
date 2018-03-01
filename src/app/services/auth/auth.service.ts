@@ -4,8 +4,8 @@ import { LoginUser } from './login-user.model';
 import { SignupUser } from './signup-user.model';
 import { Subject } from 'rxjs/Subject';
 import { Router } from '@angular/router';
-import {Headers, RequestOptions, Http} from '@angular/http';
-import { HttpErrorResponse } from '@angular/common/http/src/response';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { DeviceService } from '../socket-server/device.service';
 import * as moment from 'moment';
 
@@ -14,24 +14,38 @@ export class AuthService {
 
     private _isAdmin: any;
     status = new Subject<any>();
+    roles = new Subject<any>();
     authChange = new Subject<boolean>();
 
-    constructor(private router: Router, private http: Http, private deviceServer: DeviceService) {}
+    constructor(private router: Router, private http: HttpClient , private deviceServer: DeviceService) {
+        this.http.get('http://172.16.73.41:5000/roles', {observe: 'response'}).subscribe(resp => {
+             this.roles.next(resp);
+             console.log(resp);
+        }, err => {
+            console.log(err);
+        });
+    }
 
-    login(loginUser: LoginUser) {
+    generateHeader() {
         const header = new Headers({'Access-Control-Allow-Origin': '*',
                                 'content-type': 'application/json'});
-        const options = new RequestOptions({headers: header});
+        const options = new HttpHeaders({'Access-Control-Allow-Origin': '*',
+                                        'content-type': 'application/json'});
+        return options;
+    }
+
+    login(loginUser: LoginUser) {
         const user = {
                 email: loginUser.email,
                 password: loginUser.password
         };
         console.log('login');
-            this.http.post('http://172.16.73.32:5000/auth/login', JSON.stringify(user), options).subscribe(res => {
+            this.http.post('http://172.16.73.41:5000/auth/login', JSON.stringify(user),
+                            { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
                 if ( res.status === 200 ) {
                     this.router.navigate(['/']);
                     this.status.next(true);
-                    // this._isAdmin = true;
+                    this._isAdmin = true;
                     console.log(res);
                     this.setSession(res);
                 }
@@ -50,19 +64,33 @@ export class AuthService {
 
     signup(signupUser: SignupUser) {
         const user = {
-            user: {
-                uname: signupUser.email,
-                password: signupUser.password
-            }
+                username: signupUser.name,
+                email: signupUser.email,
+                password: signupUser.password,
+                role: signupUser.role
         };
-        this.router.navigate(['/']);
-        this.status.next(true);
+        console.log(signupUser);
+        this.http.post('http://172.16.73.41:5000/auth/register', user,
+                        { headers: this.generateHeader() , observe: 'response'} ).subscribe(resp => {
+            if ( resp.status === 201 ) {
+                console.log(resp);
+                this.router.navigate(['/']);
+                    this.status.next(true);
+                    this._isAdmin = true;
+                    console.log(resp);
+                    this.setSession(resp);
+                    this.router.navigate(['/']);
+                    this.status.next(true);
+            }
+        }, err => {
+            console.log(err);
+        });
     }
 
     private setSession(res) {
         const expiresAt = moment().add(10000, 'second');
-        console.log(res.json().auth_token);
-        localStorage.setItem('token_id', res.json().auth_token);
+        console.log(res.body.auth_token);
+        localStorage.setItem('token_id', res.body.auth_token);
         localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()) );
     }
 
@@ -74,9 +102,17 @@ export class AuthService {
 
     logout() {
         console.log(localStorage.getItem('token_id'));
+        this.http.post('http://172.16.73.41:5000/auth/logout',
+                        { headers: this.generateHeader() , observe: 'response'} ).subscribe(resp => {
+            console.log(resp);
+        }, err => {
+            console.log(err);
+        });
         this.authChange.next(false);
         this.router.navigate(['/login']);
-        this.deviceServer.disconnect();
+        // this.deviceServer.disconnect();
+
+
         localStorage.removeItem('token_id');
         localStorage.removeItem('expires_at');
     }

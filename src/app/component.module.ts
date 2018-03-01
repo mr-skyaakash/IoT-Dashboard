@@ -16,8 +16,6 @@ import { environment } from '../environments/environment';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { PushService } from './services/push-notify/push.service';
 import { MomentModule } from 'angular2-moment';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ClientInterceptor } from './services/auth/client.interceptor';
 import 'hammerjs';
 import { AuthModule } from './components/auth/auth.module';
 import { MainModule } from './components/main/main.module';
@@ -53,7 +51,7 @@ firebase.initializeApp(environment.firebase);
         BrowserAnimationsModule,
         AngularFireDatabaseModule,
         AngularFireModule,
-        MomentModule
+        MomentModule,
         ],
     entryComponents: [],
     providers: [
@@ -61,11 +59,6 @@ firebase.initializeApp(environment.firebase);
         AuthService,
         MqttService,
         ConnectService,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: ClientInterceptor,
-            multi: true
-        },
         DeviceService,
         PushService,
         SidenavMainService,

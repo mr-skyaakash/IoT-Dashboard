@@ -8,7 +8,7 @@ import { SidenavMainService } from '../../../services/sidenav-main/sidenav-main.
 })
 export class SidenavComponent implements OnInit {
 
-  arr = [false, false, false, false];
+  arr = [true, false, false, false];
 
   constructor(private sidenavMain: SidenavMainService) { }
 

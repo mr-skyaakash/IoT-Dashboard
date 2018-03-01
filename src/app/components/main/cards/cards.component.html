@@ -1,6 +1,6 @@
 <section>
-    <app-devices [@slide]="states[0]" *ngIf="arr[0]"></app-devices>
-    <app-data [@slide]="states[1]" *ngIf="arr[1]"></app-data>
-    <app-admin [@slide]="states[2]" *ngIf="arr[2]"></app-admin>
-    <app-settings [@slide]="states[3]" *ngIf="arr[3]"></app-settings>
+    <app-devices @slide *ngIf="arr[0]"></app-devices>
+    <app-data @slide *ngIf="arr[1]"></app-data>
+    <app-admin @slide *ngIf="arr[2]"></app-admin>
+    <app-settings @slide *ngIf="arr[3]"></app-settings>
 </section>

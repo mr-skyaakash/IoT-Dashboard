@@ -11,6 +11,7 @@ export class ClientInterceptor implements HttpInterceptor {
             const cloned = req.clone({
                 headers: req.headers.set('Authorization', 'Bearer ' + token)
             });
+            console.log('token added');
             return next.handle(cloned);
         } else {
             console.log('Token not found');

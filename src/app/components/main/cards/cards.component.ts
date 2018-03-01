@@ -6,6 +6,7 @@ import { MqttService } from '../../../services/mqtt.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { SidenavMainService } from '../../../services/sidenav-main/sidenav-main.service';
 import { MainSlideAnimation } from '../../../_animations/main-slide.animation';
+import { trigger, transition, query, style, stagger, animate, keyframes } from '@angular/animations';
 
 
 @Component({
@@ -16,8 +17,8 @@ import { MainSlideAnimation } from '../../../_animations/main-slide.animation';
 })
 export class CardsComponent implements OnInit {
 
-  arr = [false, false, false, false];
-  states = ['inactive', 'inactive', 'inactive', 'inactive'];
+  arr = [true, false, false, false];
+  states = ['active', 'inactive', 'inactive', 'inactive'];
 
   constructor(private sidenavMain: SidenavMainService) {
     this.sidenavMain.currentActive.subscribe(index => {

@@ -7,11 +7,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRouting } from '../../app-routing.module';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../../../environments/environment';
 import { MomentModule } from 'angular2-moment';
+import { CapitalizePipe } from '../../_pipes/capitalize.pipe';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ClientInterceptor } from '../../services/auth/client.interceptor';
 
 @NgModule({
     imports: [
@@ -22,17 +25,26 @@ import { MomentModule } from 'angular2-moment';
         FlexLayoutModule,
         // BrowserAnimationsModule,
         AppRouting,
-        HttpModule,
+        HttpClientModule,
     ],
     declarations: [
         LoginComponent,
-        SignupComponent
+        SignupComponent,
+        CapitalizePipe
     ],
     exports: [
         LoginComponent,
         SignupComponent,
         AppRouting,
-        HttpModule,
+        HttpClientModule,
+        CapitalizePipe
+    ],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ClientInterceptor,
+            multi: true
+        },
     ]
 })
 export class AuthModule {}

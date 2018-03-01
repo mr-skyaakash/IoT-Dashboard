@@ -23,6 +23,13 @@
             <mat-error *ngIf="!password.hasError('minlength')">Password cannot be empty</mat-error>
             <mat-error *ngIf="password.hasError('minlength')">Password too short</mat-error>
           </mat-form-field>
+          <mat-form-field>
+            <mat-select placeholder="Role" formControlName="role" name="role">
+              <mat-option *ngFor="let role of roles" [value]="role.roleName">
+                {{ role.roleName | capInit }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
           <div fxLayout="row-reverse">
             <button type="submit" mat-raised-button color="accent" [disabled]="loginForm.invalid">Signup</button>
           </div>
