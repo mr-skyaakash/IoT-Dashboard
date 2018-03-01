@@ -2,5 +2,5 @@
     <app-devices @slide *ngIf="arr[0]"></app-devices>
     <app-data @slide *ngIf="arr[1]"></app-data>
     <app-admin @slide *ngIf="arr[2]"></app-admin>
-    <app-settings @slide *ngIf="arr[3]"></app-settings>
+    <app-settings @slide *ngIf="arr[3] && showSettings"></app-settings>
 </section>

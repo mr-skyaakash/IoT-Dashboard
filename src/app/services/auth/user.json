@@ -1,12 +1,9 @@
 {
-    "users": [
+    "user": [
         {
-            "uname": "admin@admin",
-            "urole": "admin"
-        },
-        {
-            "uname": "user@user",
-            "urole": "user"
+            "name": "",
+            "role": "",
+            "email": ""
         }
     ]
 }

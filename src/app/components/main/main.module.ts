@@ -13,7 +13,7 @@ import { Material } from '../../material.module';
 import { ChartModule } from 'angular2-highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 import { AppRouting } from '../../app-routing.module';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
@@ -27,7 +27,7 @@ export function highchartsFactory() {
         Material,
         ChartModule,
         AppRouting,
-        HttpModule,
+        HttpClientModule,
         FlexLayoutModule
     ],
     declarations: [
@@ -58,7 +58,7 @@ export function highchartsFactory() {
         AddDeviceComponent,
         ModifyDeviceComponent,
         AppRouting,
-        HttpModule,
+        HttpClientModule,
     ],
     providers: [
         {

@@ -7,6 +7,7 @@ import { Device } from '../../../../services/devices/device.model';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Subscription } from 'rxjs/Subscription';
 import { ModifyDeviceComponent } from './modify-device.component';
+import { User } from '../../../../services/devices/user.model';
 
 @Component({
   selector: 'app-settings',
@@ -15,8 +16,12 @@ import { ModifyDeviceComponent } from './modify-device.component';
 })
 export class SettingsComponent implements OnInit, OnDestroy {
 
+  panelOpenState: boolean = false;
+
   _devices = new Array<Device>();
+  _users = new Array<User>();
   private _deviceSubscription: Subscription;
+  private _userSubscription: Subscription;
 
   constructor( private dialog: MatDialog, private deviceService: AddDeviceService) { }
   // private devices: ConnectService,
@@ -25,16 +30,21 @@ export class SettingsComponent implements OnInit, OnDestroy {
       this._devices = deviceList;
       console.log(deviceList);
     });
+    this._userSubscription = this.deviceService.users.subscribe(userList => {
+      this._users = userList;
+      console.log(userList);
+    });
+    this.deviceService.getUserList();
   }
 
-  addDevice() {
+  addDevice(email) {
     const deviceDialog = this.dialog.open( AddDeviceComponent, {
     });
 
     deviceDialog.afterClosed().subscribe(result => {
       if ( result !== false ) {
         console.log(result);
-        this.deviceService.addDevice(result.name, result.topic);
+        this.deviceService.addDevice(result.name, result.topic, email);
       }
     });
     console.log(this._devices);
@@ -58,6 +68,12 @@ export class SettingsComponent implements OnInit, OnDestroy {
         this.deviceService.modifyDevice(dev.devId , result.name, result.topic);
       }
     });
+  }
+
+  panelOpen(email) {
+    console.log('Opened');
+    this._devices = [];
+    this.deviceService.getUserDevice(email);
   }
 
   // findDevice(dev) {
@@ -84,6 +100,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this._deviceSubscription.unsubscribe();
+    this._userSubscription.unsubscribe();
   }
 
 

@@ -8,7 +8,7 @@
     <mat-list-item [ngClass]="{'item': true, 'item-select': arr[2]}" (click)="select(2)">
         <mat-icon>build</mat-icon><span class="nav-caption">Admin</span>
     </mat-list-item>
-    <mat-list-item [ngClass]="{'item': true, 'item-select': arr[3]}" (click)="select(3)"  cdkFocusRegionEnd>
+    <mat-list-item [ngClass]="{'item': true, 'item-select': arr[3]}" (click)="select(3)" *ngIf="showSettings"  cdkFocusRegionEnd>
         <mat-icon>build</mat-icon><span class="nav-caption">Settings</span>
     </mat-list-item>
   </mat-nav-list>

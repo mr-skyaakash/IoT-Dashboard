@@ -12,14 +12,18 @@ import * as moment from 'moment';
 @Injectable()
 export class AuthService {
 
-    private _isAdmin: any;
+    private _isAdmin: any = false;
     status = new Subject<any>();
     roles = new Subject<any>();
     authChange = new Subject<boolean>();
 
     constructor(private router: Router, private http: HttpClient , private deviceServer: DeviceService) {
-        this.http.get('http://172.16.73.41:5000/roles', {observe: 'response'}).subscribe(resp => {
-             this.roles.next(resp);
+    }
+
+    fetchRoles() {
+        console.log('Fetching roles');
+        this.http.get('http://172.16.73.41:5000/roles', {headers: this.generateHeader(), observe: 'response'}).subscribe(resp => {
+             this.roles.next(resp.body);
              console.log(resp);
         }, err => {
             console.log(err);
@@ -45,7 +49,9 @@ export class AuthService {
                 if ( res.status === 200 ) {
                     this.router.navigate(['/']);
                     this.status.next(true);
-                    this._isAdmin = true;
+                    if ( res.body.status === 'ADMIN' ) {
+                        this._isAdmin = true;
+                    }
                     console.log(res);
                     this.setSession(res);
                 }
@@ -76,7 +82,9 @@ export class AuthService {
                 console.log(resp);
                 this.router.navigate(['/']);
                     this.status.next(true);
-                    this._isAdmin = true;
+                    if ( resp.body.status === 'ADMIN' ) {
+                        this._isAdmin = true;
+                    }
                     console.log(resp);
                     this.setSession(resp);
                     this.router.navigate(['/']);
@@ -110,6 +118,7 @@ export class AuthService {
         });
         this.authChange.next(false);
         this.router.navigate(['/login']);
+        this._isAdmin = false;
         // this.deviceServer.disconnect();
 
 
@@ -121,15 +130,15 @@ export class AuthService {
         // if ( this._user === undefined || this._user === null ) {
         //     return false;
         // }
-        this.authChange.next(true);
-        this._isAdmin = true;
-        return true;
-        // if (moment().isBefore(this.getExpiration())) {
-        //     this.authChange.next(true);
-        //     this._isAdmin = true;
-        //     return true;
-        // }
-        // return false;
+        // this.authChange.next(true);
+        // this._isAdmin = true;
+        // return true;
+        if (moment().isBefore(this.getExpiration())) {
+            this.authChange.next(true);
+            // this._isAdmin = true;
+            return true;
+        }
+        return false;
 
     }
 

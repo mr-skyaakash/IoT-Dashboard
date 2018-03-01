@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MatSidenavModule, MatToolbarModule, MatCardModule, MatListModule, MatButtonModule, MatSelectModule,
         MatIconModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatTabsModule,
-        MatMenuModule, MatProgressBarModule, MatSnackBarModule} from '@angular/material';
+        MatMenuModule, MatProgressBarModule, MatSnackBarModule, MatExpansionModule} from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { MqttService } from './services/mqtt.service';
 import { AuthService } from './services/auth/auth.service';
@@ -24,7 +24,8 @@ import { ConnectService } from './services/devices/connect.service';
              MatTabsModule,
              MatMenuModule,
              MatProgressBarModule,
-             MatSnackBarModule
+             MatSnackBarModule,
+             MatExpansionModule,
              ],
     exports: [ MatSidenavModule,
          MatToolbarModule,
@@ -40,7 +41,8 @@ import { ConnectService } from './services/devices/connect.service';
              MatTabsModule,
              MatMenuModule,
              MatProgressBarModule,
-             MatSnackBarModule
+             MatSnackBarModule,
+             MatExpansionModule,
              ],
         providers: [
                 MqttService,

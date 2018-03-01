@@ -42,6 +42,8 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.rolesSubscription = this.service.roles.subscribe(data => {
       this.roles = data;
     });
+
+    this.service.fetchRoles();
   }
 
   onSubmit() {

@@ -1,5 +1,5 @@
 <section ngClass="card-list" fxLayout fxLayout.lt-md="column" fxLayoutAlign.gt-sm="space-evenly center" fxLayoutGap="10px">
-  <mat-card  fxFlex.lt-md="100%" fxFlex.md="30" fxFlex.gt-md="30">
+  <!-- <mat-card  fxFlex.lt-md="100%" fxFlex.md="30" fxFlex.gt-md="30">
       <mat-card-title>
         <h4>Device View</h4>
       </mat-card-title>
@@ -25,5 +25,46 @@
           <mat-icon>add</mat-icon>
         </button>
       </mat-card-actions>
-    </mat-card>
+    </mat-card> -->
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let user of _users" (opened)="panelOpen(user.email)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{user.username}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{user.email}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+    
+        <!-- <mat-form-field>
+          <input matInput placeholder="Device name">
+        </mat-form-field>
+    
+        <mat-form-field>
+          <input matInput placeholder="Device topic">
+        </mat-form-field> -->
+
+        <mat-list>
+          <mat-list-item  *ngFor="let dev of _devices">
+            <mat-icon matListIcon>devices other</mat-icon>
+            <span style="padding-left: 5px">{{dev.devname}}</span>
+            <span style="flex: 1 1 auto"></span>
+  
+            <mat-menu #changeMenu="matMenu">
+              <button (click)="modify(dev)" mat-menu-item>Modify</button>
+              <button (click)="remove(dev)" mat-menu-item>Remove</button>
+            </mat-menu>
+  
+            <button mat-icon-button [matMenuTriggerFor]="changeMenu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+
+        <mat-action-row>
+          <button mat-raised-button (click)="addDevice(user.email)" color="accent">Add Device</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>  
 </section>

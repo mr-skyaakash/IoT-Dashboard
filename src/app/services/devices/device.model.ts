@@ -1,5 +1,4 @@
 export class Device {
-    devName: string;
-    devTopic: string;
-    devId: number;
+    devname: string;
+    devtopic: string;
 }

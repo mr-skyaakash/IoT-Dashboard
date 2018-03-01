@@ -19,8 +19,9 @@ export class CardsComponent implements OnInit {
 
   arr = [true, false, false, false];
   states = ['active', 'inactive', 'inactive', 'inactive'];
+  showSettings = false;
 
-  constructor(private sidenavMain: SidenavMainService) {
+  constructor(private sidenavMain: SidenavMainService,private authService: AuthService) {
     this.sidenavMain.currentActive.subscribe(index => {
       for (let i = 0 ; i < this.arr.length; i++) {
         this.arr[i] = false;
@@ -32,6 +33,9 @@ export class CardsComponent implements OnInit {
       }
       console.log(this.states);
     });
+    this.showSettings = this.authService.getUserRole();
+    console.log(this.showSettings);
+
   }
 
   ngOnInit() {

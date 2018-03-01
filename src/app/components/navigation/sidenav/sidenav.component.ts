@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SidenavMainService } from '../../../services/sidenav-main/sidenav-main.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -9,10 +10,12 @@ import { SidenavMainService } from '../../../services/sidenav-main/sidenav-main.
 export class SidenavComponent implements OnInit {
 
   arr = [true, false, false, false];
+  showSettings = false;
 
-  constructor(private sidenavMain: SidenavMainService) { }
+  constructor(private sidenavMain: SidenavMainService, private authService: AuthService) { }
 
   ngOnInit() {
+    this.showSettings = this.authService.getUserRole();
   }
 
   select(index) {
