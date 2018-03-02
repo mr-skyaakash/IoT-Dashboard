@@ -49,9 +49,7 @@ export class AuthService {
                 if ( res.status === 200 ) {
                     this.router.navigate(['/']);
                     this.status.next(true);
-                    if ( res.body.status === 'ADMIN' ) {
-                        this._isAdmin = true;
-                    }
+                    
                     console.log(res);
                     this.setSession(res);
                 }
@@ -82,9 +80,6 @@ export class AuthService {
                 console.log(resp);
                 this.router.navigate(['/']);
                     this.status.next(true);
-                    if ( resp.body.status === 'ADMIN' ) {
-                        this._isAdmin = true;
-                    }
                     console.log(resp);
                     this.setSession(resp);
                     this.router.navigate(['/']);
@@ -98,6 +93,9 @@ export class AuthService {
     private setSession(res) {
         const expiresAt = moment().add(10000, 'second');
         console.log(res.body.auth_token);
+        if ( res.body.status === 'ADMIN' ) {
+            localStorage.setItem('role',"ADMIN");        
+        }
         localStorage.setItem('token_id', res.body.auth_token);
         localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()) );
     }
@@ -124,6 +122,7 @@ export class AuthService {
 
         localStorage.removeItem('token_id');
         localStorage.removeItem('expires_at');
+        localStorage.removeItem('role');
     }
 
     isAuth() {
@@ -142,8 +141,14 @@ export class AuthService {
 
     }
 
+    getUserEmail() {}
+
     getUserRole() {
         // return {...this._user};
-        return this._isAdmin;
+        // return this._isAdmin;
+        if ( localStorage.getItem('role')) {
+            return true;
+        }
+        return false;
     }
 }
