@@ -26,6 +26,7 @@
         </button>
       </mat-card-actions>
     </mat-card> -->
+    <mat-progress-spinner mode="indeterminate" *ngIf="showLoader"></mat-progress-spinner>
     <mat-accordion>
       <mat-expansion-panel *ngFor="let user of _users" (opened)="panelOpen(user.email)">
         <mat-expansion-panel-header>
@@ -52,8 +53,8 @@
             <span style="flex: 1 1 auto"></span>
   
             <mat-menu #changeMenu="matMenu">
-              <button (click)="modify(dev)" mat-menu-item>Modify</button>
-              <button (click)="remove(dev)" mat-menu-item>Remove</button>
+              <button (click)="modify(user.email ,dev)" mat-menu-item>Modify</button>
+              <button (click)="remove(user.email ,dev)" mat-menu-item>Remove</button>
             </mat-menu>
   
             <button mat-icon-button [matMenuTriggerFor]="changeMenu">

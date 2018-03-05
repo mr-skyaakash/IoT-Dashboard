@@ -70,40 +70,41 @@ export class AddDeviceService implements OnDestroy {
   }
   
   
-  removeDevice(devId) {
-    // this.devicesList.forEach(element => {
-      //   if ( element.devId === devId ) {
-        //     this.http.delete('http://192.168.100.7:5500/device?id=' + element.devId, { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
-          //       if ( res.status === 204 ) {
-            //         this.devicesList.splice(this.devicesList.indexOf(element), 1);
-            //         this.devices.next(this.devicesList);
-            //       }
-            //     }, (err) => {
-              //       console.log(err);
-              //     });
-              //   }
-    // });
+  removeDevice(emailId, name) {
+    this.devicesList.forEach(element => {
+        if ( element.devname === name ) {
+            this.http.delete('http://172.16.73.41:5000/admin/deviceconfig?email=' + emailId + '&dev='+ element.devname, { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
+                if ( res.status === 204 ) {
+                    this.devicesList.splice(this.devicesList.indexOf(element), 1);
+                    this.devices.next(this.devicesList);
+                  }
+                }, (err) => {
+                    console.log(err);
+                  });
+                }
+    });
   }
 
-  modifyDevice(id, name, topic) {
-    // const dev = {
-      //   devId: id,
-      //   devName: name,
-      //   devTopic: topic
-      // };
-      // this.devicesList.forEach(element => {
-    //   if ( element.devId === id ) {
-      //     this.http.put('http://192.168.100.7:5500/device', dev ,{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
-    //       if ( res.status === 204 ) {
-      //         element.devName = name;
-    //         element.devTopic = topic;
-    //         this.devices.next(this.devicesList);
-    //       } else {
-      //         console.log(res);
-      //       }
-      //     });
-      //   }
-      // });
+  modifyDevice(emailId, id, name, topic) {
+    const dev = {
+        email: emailId,
+        devname: id,
+        new_devname: name,
+        new_devtopic: topic
+      };
+      this.devicesList.forEach((element, index, array) => {
+      if ( element.devname === id ) {
+          this.http.put('http://172.16.73.41:5000/admin/deviceconfig', dev ,{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
+          if ( res.status === 204 ) {
+            array[index].devname = name;
+            array[index].devtopic = topic;
+          } else {
+              console.log(res);
+            }
+          });
+        }
+      });
+      this.devices.next(this.devicesList);
     }
 
 // admin functions finish
@@ -127,7 +128,7 @@ export class AddDeviceService implements OnDestroy {
     this.deviceInfoList.forEach(element => {
       if ( element.devname === devName ) {
         element.devstatus = devStatus;
-        this.http.post('http://172.16.73.41:5000/device/deviceinfo', element , { headers: this.generateHeader(), observe: 'response').subscribe( res => {
+        this.http.post('http://172.16.73.41:5000/device/deviceinfo', element , { headers: this.generateHeader(), observe: 'response'}).subscribe( res => {
           console.log(res);
         });
       }

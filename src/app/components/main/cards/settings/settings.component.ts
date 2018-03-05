@@ -17,6 +17,7 @@ import { User } from '../../../../services/devices/user.model';
 export class SettingsComponent implements OnInit, OnDestroy {
 
   panelOpenState: boolean = false;
+  showLoader: boolean = true;
 
   _devices = new Array<Device>();
   _users = new Array<User>();
@@ -31,6 +32,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
       console.log(deviceList);
     });
     this._userSubscription = this.deviceService.users.subscribe(userList => {
+      this.showLoader = false;
       this._users = userList;
       console.log(userList);
     });
@@ -50,22 +52,21 @@ export class SettingsComponent implements OnInit, OnDestroy {
     console.log(this._devices);
   }
 
-  remove(dev) {
-    this.deviceService.removeDevice(dev.devId);
+  remove(email, dev) {
+    this.deviceService.removeDevice(email, dev.devname);
   }
 
-  modify(dev) {
+  modify(email, dev) {
     const deviceDialog = this.dialog.open(ModifyDeviceComponent, {
       data: {
-        name: dev.devName,
-        topic: dev.devTopic
+        name: dev.devname,
+        topic: dev.devtopic
       }
     });
 
     deviceDialog.afterClosed().subscribe(result => {
       if ( result !== false ) {
-        console.log(result);
-        this.deviceService.modifyDevice(dev.devId , result.name, result.topic);
+        this.deviceService.modifyDevice(email, dev.devname , result.name, result.topic);
       }
     });
   }
