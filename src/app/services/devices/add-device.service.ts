@@ -48,10 +48,11 @@ export class AddDeviceService implements OnDestroy {
     });
   }
 
-  addDevice(name, topic, emailId) {
+  addDevice(name, topic, type, emailId) {
     const dev = {
       devname: name,
       devtopic: topic,
+      devtype: type,
       email: emailId
     };
     this.http.post('http://172.16.73.41:5000/admin/deviceconfig', dev,{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
@@ -59,7 +60,8 @@ export class AddDeviceService implements OnDestroy {
         console.log(res.body);
         this.devicesList.push({
           devname: name,
-          devtopic: topic
+          devtopic: topic,
+          devtype: type
         });
         console.log('device list : ' + this.devicesList);
         this.devices.next(this.devicesList);
@@ -85,12 +87,13 @@ export class AddDeviceService implements OnDestroy {
     });
   }
 
-  modifyDevice(emailId, id, name, topic) {
+  modifyDevice(emailId, id, name, topic, type) {
     const dev = {
         email: emailId,
         devname: id,
         new_devname: name,
-        new_devtopic: topic
+        new_devtopic: topic,
+        new_devtype: type
       };
       this.devicesList.forEach((element, index, array) => {
       if ( element.devname === id ) {
@@ -98,6 +101,7 @@ export class AddDeviceService implements OnDestroy {
           if ( res.status === 204 ) {
             array[index].devname = name;
             array[index].devtopic = topic;
+            array[index].devtype = type;
           } else {
               console.log(res);
             }
@@ -109,9 +113,9 @@ export class AddDeviceService implements OnDestroy {
 
 // admin functions finish
 
-    fetchUserDevice() {
+    fetchUserControlDevice() {
       this.deviceInfoList = [];
-      this.http.get('http://172.16.73.41:5000/device' ,{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
+      this.http.get('http://172.16.73.41:5000/device/control' ,{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
         if ( res.status === 200 ) {
           console.log(res)
           this.deviceInfoList.push(...res.body.message);
@@ -121,7 +125,32 @@ export class AddDeviceService implements OnDestroy {
       }, err => {
         console.log(err);
       });
+    }
 
+    fetchUserMonitorDevice() {
+      this.deviceInfoList = [];
+      this.http.get('http://172.16.73.41:5000/device/monitor' ,{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
+        if ( res.status === 200 ) {
+          console.log(res)
+          this.deviceInfoList.push(...res.body.message);
+          // console.log('Device List : ' + [...res.json().devices]);
+          this.deviceInfo.next(this.deviceInfoList);
+        }
+      }, err => {
+        console.log(err);
+      });
+    }
+
+    fetchDeviceType() {
+      let types = [];
+      this.http.get('http://172.16.73.41:5000/devicetype',{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {        if ( res.status === 200 ) {
+        console.log(res.body);  
+        types.push(...res.body);
+        }
+      }, err => {
+        console.log(err);
+      });
+      return types;
     }
     
     changeState(devName, devStatus) {

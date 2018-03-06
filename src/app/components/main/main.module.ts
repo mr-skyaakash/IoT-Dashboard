@@ -1,11 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Pipe } from '@angular/core';
 import { TabsComponent } from './tabs/tabs.component';
 import { CardsComponent } from './cards/cards.component';
 import { DevicesComponent } from './cards/devices/devices.component';
 import { AddDeviceComponent } from './cards/settings/add-device.component';
 import { ModifyDeviceComponent } from './cards/settings/modify-device.component';
 import { DataComponent } from './cards/data/data.component';
-import { DialogComponent } from './cards/data/dialog.component';
 import { AdminComponent } from './cards/admin/admin.component';
 import { SettingsComponent } from './cards/settings/settings.component';
 import { CommonModule } from '@angular/common';
@@ -15,6 +14,7 @@ import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 import { AppRouting } from '../../app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { PipeModule } from '../../_pipes/pipe.module';
 
 
 export function highchartsFactory() {
@@ -28,7 +28,8 @@ export function highchartsFactory() {
         ChartModule,
         AppRouting,
         HttpClientModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        PipeModule
     ],
     declarations: [
         TabsComponent,
@@ -37,12 +38,11 @@ export function highchartsFactory() {
         DataComponent,
         DevicesComponent,
         SettingsComponent,
-        DialogComponent,
         AddDeviceComponent,
-        ModifyDeviceComponent
+        ModifyDeviceComponent,
+        
     ],
     entryComponents: [
-        DialogComponent,
         AddDeviceComponent,
         ModifyDeviceComponent
     ]
@@ -54,11 +54,11 @@ export function highchartsFactory() {
         DataComponent,
         DevicesComponent,
         SettingsComponent,
-        DialogComponent,
         AddDeviceComponent,
         ModifyDeviceComponent,
         AppRouting,
         HttpClientModule,
+        PipeModule
     ],
     providers: [
         {

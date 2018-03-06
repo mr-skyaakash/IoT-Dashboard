@@ -46,7 +46,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     deviceDialog.afterClosed().subscribe(result => {
       if ( result !== false ) {
         console.log(result);
-        this.deviceService.addDevice(result.name, result.topic, email);
+        this.deviceService.addDevice(result.name, result.topic, result.type, email);
       }
     });
     console.log(this._devices);
@@ -60,13 +60,14 @@ export class SettingsComponent implements OnInit, OnDestroy {
     const deviceDialog = this.dialog.open(ModifyDeviceComponent, {
       data: {
         name: dev.devname,
-        topic: dev.devtopic
+        topic: dev.devtopic,
+        type: dev.devtype
       }
     });
 
     deviceDialog.afterClosed().subscribe(result => {
       if ( result !== false ) {
-        this.deviceService.modifyDevice(email, dev.devname , result.name, result.topic);
+        this.deviceService.modifyDevice(email, dev.devname , result.name,  result.topic, result.type);
       }
     });
   }

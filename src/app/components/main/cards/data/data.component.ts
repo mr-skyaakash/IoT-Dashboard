@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { ChartComponent } from 'angular2-highcharts';
 import { MatDialog } from '@angular/material';
 import { MqttService } from '../../../../services/mqtt.service';
-import { DialogComponent } from './dialog.component';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { OnDestroy } from '@angular/core';
 
@@ -14,7 +13,7 @@ import { OnDestroy } from '@angular/core';
 })
 export class DataComponent implements OnInit, OnDestroy {
 
-  options: any;
+  options: Object;
   chart: any;
 
   sub: Subscription;
@@ -53,17 +52,6 @@ export class DataComponent implements OnInit, OnDestroy {
 
   saveInstance(chartInstance) {
     this.chart = chartInstance;
-  }
-
-  openDialog() {
-    const dialogRef = this.dialog.open(DialogComponent, {
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if ( result !== false ) {
-        this.chart.series[0].addPoint(parseInt(result, 10));
-      }
-    });
-
   }
 
   ngOnDestroy() {

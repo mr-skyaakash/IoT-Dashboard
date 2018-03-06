@@ -18,8 +18,6 @@ export class DevicesComponent implements OnInit, OnDestroy {
 
   _devices= new Array<DeviceInfo>();
   private _deviceSubscription: Subscription;
-  @ViewChild('light') matSlide: MatSlideToggle;
-  zone = new NgZone({enableLongStackTrace: false});
 
   constructor(private deviceService: AddDeviceService, private serverDevice: DeviceService, private ref: ChangeDetectorRef) {}
 
@@ -28,7 +26,7 @@ export class DevicesComponent implements OnInit, OnDestroy {
       this._devices = deviceList;
     });
     // this.serverDevice.connect();
-    this.deviceService.fetchUserDevice();
+    this.deviceService.fetchUserControlDevice();
   }
 
   toggle(dev) { 

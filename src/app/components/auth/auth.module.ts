@@ -15,6 +15,7 @@ import { MomentModule } from 'angular2-moment';
 import { CapitalizePipe } from '../../_pipes/capitalize.pipe';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ClientInterceptor } from '../../services/auth/client.interceptor';
+import { PipeModule } from '../../_pipes/pipe.module';
 
 @NgModule({
     imports: [
@@ -26,18 +27,18 @@ import { ClientInterceptor } from '../../services/auth/client.interceptor';
         // BrowserAnimationsModule,
         AppRouting,
         HttpClientModule,
+        PipeModule
     ],
     declarations: [
         LoginComponent,
         SignupComponent,
-        CapitalizePipe
     ],
     exports: [
         LoginComponent,
         SignupComponent,
         AppRouting,
         HttpClientModule,
-        CapitalizePipe
+        PipeModule
     ],
     providers: [
         {

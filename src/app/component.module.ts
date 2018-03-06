@@ -22,6 +22,7 @@ import { MainModule } from './components/main/main.module';
 import { NavigationModule } from './components/navigation/navigation.module';
 import { NotFoundModule } from './components/notFound/not-found.module';
 import { SidenavMainService } from './services/sidenav-main/sidenav-main.service';
+import { CapitalizePipe } from './_pipes/capitalize.pipe';
 
 firebase.initializeApp(environment.firebase);
 
@@ -40,6 +41,7 @@ firebase.initializeApp(environment.firebase);
         MomentModule
             ],
     declarations: [
+        // CapitalizePipe
         ],
     exports: [
         AuthModule,
@@ -52,6 +54,7 @@ firebase.initializeApp(environment.firebase);
         AngularFireDatabaseModule,
         AngularFireModule,
         MomentModule,
+        // CapitalizePipe
         ],
     entryComponents: [],
     providers: [
