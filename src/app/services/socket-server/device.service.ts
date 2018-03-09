@@ -1,13 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { io } from 'socket.io';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
-export class DeviceService {
+export class DeviceService{
 
   private static socket: any;
-  private URL = 'http://192.168.100.11:5500/';
+  private URL = 'http://172.16.73.41:5000/';
+  private email;
+  newDeviceData = new Subject<number>();
 
   constructor() {
+    this.email = this.getEmail();
   }
 
   connect() {
@@ -15,10 +19,17 @@ export class DeviceService {
       transport : ['websocket'],
       credentials : 'false'
     });
-    console.log(DeviceService.socket);
+    console.log(this.email);
     DeviceService.socket.on('connect', this.onConnect.bind(this));
-    DeviceService.socket.on('event', this.onEvent.bind(this));
+    DeviceService.socket.on(this.email, this.onEvent.bind(this));
+    // DeviceService.socket.on('yo', msg => {
+    //   console.log(msg);
+    // });
     DeviceService.socket.on('disconnect', this.onDisconnect.bind(this));
+  }
+
+  getEmail() {
+    return localStorage.getItem('email');
   }
 
   onConnect() {
@@ -26,7 +37,7 @@ export class DeviceService {
   }
 
   onEvent(data) {
-    console.log('Data received : ' + data);
+    this.newDeviceData.next(data);
   }
 
   onDisconnect() {

@@ -113,6 +113,8 @@ export class AddDeviceService implements OnDestroy {
 
 // admin functions finish
 
+// user functions
+
     fetchUserControlDevice() {
       this.deviceInfoList = [];
       this.http.get('http://172.16.73.41:5000/device/control' ,{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {

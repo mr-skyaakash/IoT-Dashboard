@@ -1,27 +1,9 @@
 <section ngClass="card-list" fxLayout fxLayout.lt-md="column" fxLayoutAlign.gt-sm="space-evenly center" fxLayoutGap="10px" fxLayoutWrap>
-  <mat-card ngClass="card" fxFlex.lt-md="100%" fxFlex.md="45" fxFlex.gt-md="30">
+  <mat-card ngClass="card" fxFlex.lt-md="100%" fxFlex.md="45" fxFlex.gt-md="30" *ngFor="let opt of options; let i = index">
     <mat-card-title>
       <h4>Graph View</h4>
     </mat-card-title>
-    <chart class="chart" [options]="options" (load)="saveInstance($event.context)"></chart>
-    <mat-card-content>
-      <p>Some Description</p>
-    </mat-card-content>
-  </mat-card>
-  <mat-card ngClass="card" fxFlex.lt-md="100%" fxFlex.md="45" fxFlex.gt-md="30">
-    <mat-card-title>
-      <h4>Graph View</h4>
-    </mat-card-title>
-    <chart class="chart" [options]="options" (load)="saveInstance($event.context)"></chart>
-    <mat-card-content>
-      <p>Some Description</p>
-    </mat-card-content>
-  </mat-card>
-  <mat-card ngClass="card" fxFlex.lt-md="100%" fxFlex.md="45" fxFlex.gt-md="30">
-    <mat-card-title>
-      <h4>Graph View</h4>
-    </mat-card-title>
-    <chart class="chart" [options]="options" (load)="saveInstance($event.context)"></chart>
+    <chart class="chart" [options]="opt" (load)="saveInstance(i,$event.context)"></chart>
     <mat-card-content>
       <p>Some Description</p>
     </mat-card-content>

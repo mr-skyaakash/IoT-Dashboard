@@ -43,13 +43,14 @@ export class AuthService {
                 email: loginUser.email,
                 password: loginUser.password
         };
+        this.clearEmail();
         console.log('login');
             this.http.post('http://172.16.73.41:5000/auth/login', JSON.stringify(user),
                             { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
                 if ( res.status === 200 ) {
                     this.router.navigate(['/']);
                     this.status.next(true);
-                    
+                    this.storeEmail(loginUser.email);
                     console.log(res);
                     this.setSession(res);
                 }
@@ -73,11 +74,13 @@ export class AuthService {
                 password: signupUser.password,
                 role: signupUser.role
         };
+        this.clearEmail();
         console.log(signupUser);
         this.http.post('http://172.16.73.41:5000/auth/register', user,
                         { headers: this.generateHeader() , observe: 'response'} ).subscribe(resp => {
             if ( resp.status === 201 ) {
                 console.log(resp);
+                this.storeEmail(signupUser.email);
                 this.router.navigate(['/']);
                     this.status.next(true);
                     console.log(resp);
@@ -88,6 +91,14 @@ export class AuthService {
         }, err => {
             console.log(err);
         });
+    }
+
+    private storeEmail(email) {
+        localStorage.setItem('email',email);
+    }
+
+    private clearEmail() {
+        localStorage.removeItem('email');
     }
 
     private setSession(res) {
@@ -118,7 +129,7 @@ export class AuthService {
         this.router.navigate(['/login']);
         this._isAdmin = false;
         // this.deviceServer.disconnect();
-
+        this.clearEmail();
 
         localStorage.removeItem('token_id');
         localStorage.removeItem('expires_at');
