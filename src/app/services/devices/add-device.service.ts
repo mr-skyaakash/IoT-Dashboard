@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './user.model';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable()
 export class AddDeviceService implements OnDestroy {
@@ -65,6 +66,8 @@ export class AddDeviceService implements OnDestroy {
         });
         console.log('device list : ' + this.devicesList);
         this.devices.next(this.devicesList);
+      } else {
+        console.log('Incorrect Response');
       }
     }, (err) => {
       console.log(err);

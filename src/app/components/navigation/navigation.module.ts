@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Material } from '../../material.module';
 import { AppRouting } from '../../app-routing.module';
 import { HttpModule } from '@angular/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
     imports: [
@@ -12,6 +13,7 @@ import { HttpModule } from '@angular/http';
         Material,
         AppRouting,
         HttpModule,
+        FlexLayoutModule
     ],
     declarations: [
         HeaderComponent,

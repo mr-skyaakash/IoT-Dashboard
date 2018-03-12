@@ -10,3 +10,7 @@
 .chart {
     display: block;
 }
+
+.space {
+    flex: 1 1 auto;
+}

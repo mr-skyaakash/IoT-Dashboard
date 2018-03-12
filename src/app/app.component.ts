@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SlideUpAnimation } from './_animations/slide-up.animation';
 import { SlideLeftAnimation } from './_animations/slide-left.animation';
 import { RouterOutlet } from '@angular/router';
@@ -6,6 +6,10 @@ import * as firebase from 'firebase';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { PushService } from './services/push-notify/push.service';
 import { AuthService } from './services/auth/auth.service';
+import { MatSidenav } from '@angular/material';
+import { ObservableMedia, MediaChange } from '@angular/flex-layout';
+import { Subscribe } from '@firebase/util';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +23,11 @@ export class AppComponent implements OnInit {
   items: any;
   messaging: any;
   isAuth = false;
+  @ViewChild('sidenav') sidenav: MatSidenav;
+  watcher: Subscription;
+  activeMediaQuery = "";
+  sidenavMode: string;
+  sidenavOpened: boolean;
 
   pushData: any = {
     'notification': {
@@ -30,7 +39,7 @@ export class AppComponent implements OnInit {
 
   outlet: RouterOutlet;
 
-  constructor(private db: AngularFireDatabase, private pushService: PushService, private authService: AuthService) {
+  constructor( media: ObservableMedia ,private db: AngularFireDatabase, private pushService: PushService, private authService: AuthService) {
     this.messaging = firebase.messaging();
 
     this.messaging.onTokenRefresh(function () {
@@ -57,6 +66,15 @@ export class AppComponent implements OnInit {
 
     this.messaging.onMessage(function (payload) {
       console.log('Message received. ', payload);
+    });
+
+    this.watcher = media.subscribe((change: MediaChange) => {
+      this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
+      if ( change.mqAlias !== 'xs' ) {
+        this.loadPersistentSidenav();
+      } else {
+        this.loadMinimizedSidenav();
+      }
     });
   }
 
@@ -118,6 +136,25 @@ export class AppComponent implements OnInit {
       }
       console.log('Counter value', counter);
       return counter;
+  }
+  toggle() {
+    console.log(this.sidenavMode);
+    // this.sidenavMode = this.sidenavMode === 'push' ? 'side' : 'push';
+    this.sidenav.toggle();
+  }
+
+  loadPersistentSidenav() {
+    this.sidenavOpened = true;
+    this.sidenavMode = 'side';
+  }
+
+  loadMinimizedSidenav() {
+    this.sidenavOpened = false;
+    this.sidenavMode = 'push';
+  }
+
+  preventClose() {
+    this.sidenav.disableClose = true;
   }
 
 

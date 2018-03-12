@@ -1,7 +1,7 @@
 <section class="box">
-  <app-header class="header"></app-header>
+  <app-header class="header" (sidenave)="toggle()"></app-header>
   <mat-sidenav-container ngClass.xs="sidenav-xs" ngClass.gt-xs="box">
-    <mat-sidenav disableClose  mode="side" opened="true" class="sidenav" *ngIf="isAuth">
+    <mat-sidenav #sidenav (keydown.escape)="preventClose()" [mode]="sidenavMode" [opened]="sidenavOpened" class="sidenav" *ngIf="isAuth">
       <app-sidenav></app-sidenav>
     </mat-sidenav>
     <mat-sidenav-content>

@@ -2,10 +2,25 @@
   <mat-card ngClass="card" fxFlex.lt-md="100%" fxFlex.md="45" fxFlex.gt-md="30" *ngFor="let opt of options; let i = index">
     <mat-card-title>
       <h4>Graph View</h4>
+      <span class="space"></span>
+      <mat-menu #customDate="matMenu">
+        <button mat-menu-item>Last 1 Hour</button>
+        <button mat-menu-item>Last 24 Hours</button>
+        <button mat-menu-item>Last 1 Week</button>
+      </mat-menu>
+
+      <button mat-icon-button [matMenuTriggerFor]="customDate">
+        <mat-icon>more_vert</mat-icon>
+      </button>
     </mat-card-title>
     <chart class="chart" [options]="opt" (load)="saveInstance(i,$event.context)"></chart>
     <mat-card-content>
       <p>Some Description</p>
     </mat-card-content>
   </mat-card>
+  <mat-card ngClass="card" fxFlex.lt-sm="100%" fxFlex.sm="45%" fxFlex.md="30%" fxFlex.gt-md="30%" *ngIf="!options || options.length==0">
+    <mat-card-title fxLayout>
+        <span>No devices added</span>
+    </mat-card-title>
+</mat-card>
 </section>

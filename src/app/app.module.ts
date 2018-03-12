@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { AppRouting } from './app-routing.module';
 import { ComponentModule } from './component.module';
 import { environment } from '../environments/environment';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [

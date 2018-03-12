@@ -16,7 +16,7 @@ import { DeviceInfo } from '../../../../services/devices/device-info.model';
 })
 export class DataComponent implements OnInit, OnDestroy {
 
-  options: Array<Object>;
+  options= new Array<Object>();
   chart = new Array<Object>();
 
   sub: Subscription;

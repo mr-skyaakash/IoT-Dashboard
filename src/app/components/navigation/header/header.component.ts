@@ -13,7 +13,7 @@ import { NavigationEnd } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  @Output() sidenav = new EventEmitter<void>();
+  @Output() sidenave = new EventEmitter<void>();
   isAuth = false;
   authSubscription: Subscription;
   doLogin = false;
@@ -45,7 +45,11 @@ export class HeaderComponent implements OnInit {
   }
 
   sidenavOpen() {
-    this.sidenav.emit();
+    this.sidenave.emit();
+  }
+
+  toggleSidenav() {
+    this.sidenave.emit();
   }
 
   onLogout() {
