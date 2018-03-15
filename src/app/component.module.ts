@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Material } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { AddDeviceService } from './services/devices/add-device.service';
+import { AddDeviceService } from './services/devices/admin/add-device.service';
 import { AuthService } from './services/auth/auth.service';
 import { MqttService } from './services/mqtt.service';
 import { ConnectService } from './services/devices/connect.service';
@@ -23,6 +23,9 @@ import { NavigationModule } from './components/navigation/navigation.module';
 import { NotFoundModule } from './components/notFound/not-found.module';
 import { SidenavMainService } from './services/sidenav-main/sidenav-main.service';
 import { CapitalizePipe } from './_pipes/capitalize.pipe';
+import { ControlService } from './services/devices/control.service';
+import { MonitorService } from './services/devices/monitor.service';
+import { SliderService } from './services/devices/slider.service';
 
 firebase.initializeApp(environment.firebase);
 
@@ -65,6 +68,9 @@ firebase.initializeApp(environment.firebase);
         DeviceService,
         PushService,
         SidenavMainService,
+        ControlService,
+        MonitorService,
+        SliderService,
         ]
 })
 export class ComponentModule {}

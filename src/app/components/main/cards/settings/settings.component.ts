@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AddDeviceComponent } from './add-device.component';
 import { ConnectService } from '../../../../services/devices/connect.service';
 import { MatDialog } from '@angular/material';
-import { AddDeviceService } from '../../../../services/devices/add-device.service';
+import { AddDeviceService } from '../../../../services/devices/admin/add-device.service';
 import { Device } from '../../../../services/devices/device.model';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Subscription } from 'rxjs/Subscription';
@@ -19,7 +19,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   panelOpenState: boolean = false;
   showLoader: boolean = true;
 
-  _devices = new Array<Device>();
+  _devices = new Array<any>();
   _users = new Array<User>();
   private _deviceSubscription: Subscription;
   private _userSubscription: Subscription;
@@ -27,7 +27,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   constructor( private dialog: MatDialog, private deviceService: AddDeviceService) { }
   // private devices: ConnectService,
   ngOnInit() {
-    this._deviceSubscription = this.deviceService.devices.subscribe(deviceList => {
+    this._deviceSubscription = this.deviceService.userDevices.subscribe(deviceList => {
       this._devices = deviceList;
       console.log(deviceList);
     });
@@ -41,12 +41,18 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   addDevice(email) {
     const deviceDialog = this.dialog.open( AddDeviceComponent, {
+      width: '350px',
     });
 
     deviceDialog.afterClosed().subscribe(result => {
       if ( result !== false ) {
         console.log(result);
-        this.deviceService.addDevice(result.name, result.topic, result.type, email);
+        if ( Object.keys(result).length > 3 ) {
+          console.log('slider');
+          this.deviceService.addDevice(result.name, result.topic, result.type, email, result.min, result.max, result.step);
+        } else {
+          this.deviceService.addDevice(result.name, result.topic, result.type, email);
+        }
       }
     });
     console.log(this._devices);
@@ -58,6 +64,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   modify(email, dev) {
     const deviceDialog = this.dialog.open(ModifyDeviceComponent, {
+      width: '350px',
       data: {
         name: dev.devname,
         topic: dev.devtopic,

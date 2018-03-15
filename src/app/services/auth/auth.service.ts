@@ -102,7 +102,7 @@ export class AuthService {
     }
 
     private setSession(res) {
-        const expiresAt = moment().add(10000, 'second');
+        const expiresAt = moment().add(100000, 'second');
         console.log(res.body.auth_token);
         if ( res.body.status === 'ADMIN' ) {
             localStorage.setItem('role',"ADMIN");        
@@ -145,10 +145,12 @@ export class AuthService {
         // return true;
         if (moment().isBefore(this.getExpiration())) {
             this.authChange.next(true);
-            // this._isAdmin = true;
             return true;
+        } else {
+            localStorage.removeItem('token_id');
+            localStorage.removeItem('expires_at');
+            localStorage.removeItem('role');
         }
-        return false;
 
     }
 

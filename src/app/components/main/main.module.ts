@@ -15,6 +15,7 @@ import { AppRouting } from '../../app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PipeModule } from '../../_pipes/pipe.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 export function highchartsFactory() {
@@ -29,7 +30,9 @@ export function highchartsFactory() {
         AppRouting,
         HttpClientModule,
         FlexLayoutModule,
-        PipeModule
+        PipeModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     declarations: [
         TabsComponent,
@@ -58,7 +61,9 @@ export function highchartsFactory() {
         ModifyDeviceComponent,
         AppRouting,
         HttpClientModule,
-        PipeModule
+        PipeModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [
         {

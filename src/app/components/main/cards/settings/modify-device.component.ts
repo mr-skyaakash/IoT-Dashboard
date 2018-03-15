@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { AddDeviceService } from '../../../../services/devices/add-device.service';
+import { AddDeviceService } from '../../../../services/devices/admin/add-device.service';
 
 
 @Component({

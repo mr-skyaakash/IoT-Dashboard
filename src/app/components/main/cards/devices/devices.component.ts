@@ -1,7 +1,7 @@
 import { Component, OnInit,Input, ViewChild, ChangeDetectorRef, NgZone } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { DeviceInfo } from '../../../../services/devices/device-info.model';
-import { AddDeviceService } from '../../../../services/devices/add-device.service';
+import { AddDeviceService } from '../../../../services/devices/admin/add-device.service';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { DeviceService } from '../../../../services/socket-server/device.service';
 import { MainSlideAnimation } from '../../../../_animations/main-slide.animation';
