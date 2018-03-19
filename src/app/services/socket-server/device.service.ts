@@ -11,7 +11,7 @@ export class DeviceService{
   newDeviceData = new Subject<number>();
 
   constructor() {
-    this.email = this.getEmail();
+    this.email = this.getEmail() + '/monitor';
   }
 
   connect() {

@@ -22,20 +22,8 @@ export class AddDeviceService implements OnDestroy {
   private deviceInfoList: DeviceInfo[] = [];
   public deviceInfo = new Subject<Array<DeviceInfo>>();
 
-
-  private userControlDevices: Control[] = [];
-  private userMonitorDevices: Monitor[] = [];
-  private userSliderDevices: Slider[] = [];
-
-  private deviceTypeList = [this.userControlDevices,
-                            this.userMonitorDevices,
-                            this.userSliderDevices]
-
   private userDevicesList: Array<any>;
   public userDevices = new Subject<Array<any>>();
-
-
-  
 
   generateHeader() {
     const options = new HttpHeaders({'Access-Control-Allow-Origin': '*',
@@ -44,40 +32,6 @@ export class AddDeviceService implements OnDestroy {
   }
 
   constructor(private http: HttpClient) {
-  }
-
-  generateDevice(name, topic, type, emailId, min ?: number, max ?: number, step ?: number) {
-    if ( type === DeviceType.control ) {
-      let device = new Control();
-      device.devname = name;
-      device.devstatus = null;
-      device.devtopic = topic;
-      device.devtype = type;
-      console.log('My device : ' + device);
-      this.userControlDevices.push(device);
-      this.userDevicesList.push(...this.userControlDevices);
-    } else if ( type === DeviceType.monitor ) {
-      let device = new Monitor();
-      device.devname = name;
-      device.devstatus = null;
-      device.devtopic = topic;
-      device.devtype = type;
-      device.devtime = null;
-      this.userMonitorDevices.push(device);
-      this.userDevicesList.push(...this.userMonitorDevices);
-    } else {
-      let device = new Slider();
-      device.devname = name;
-      device.devstatus = null;
-      device.devtopic = topic;
-      device.devtype = type;
-      device.devtime = null;
-      device.devmin = min;
-      device.devmax = max;
-      device.devstep = step; 
-      this.userSliderDevices.push(device);
-      this.userDevicesList.push(...this.userSliderDevices);
-    }
   }
 
   //admin functions
@@ -94,29 +48,13 @@ export class AddDeviceService implements OnDestroy {
     const user = {
       email: emailId
     };
-    this.userControlDevices = [];
-    this.userMonitorDevices = [];
-    this.userSliderDevices = [];
     this.userDevicesList = [];
     console.log('Device List Local : ' + this.userDevicesList);
     this.http.post('http://172.16.73.41:5000/admin/userdetails', user,  { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
       const data = res.body.message;
       console.log(res.body.message);
-      for(let key in data) {
-        if ( data[key].devtype === DeviceType.control ) {
-            this.userControlDevices.push(data[key]);
-          } else if ( data[key].devtype === DeviceType.monitor ) {
-              this.userMonitorDevices.push(data[key]);
-          } else {
-              this.userSliderDevices.push(data[key]);
-            }
-      }
       // console.log(this.userControlDevices);
-      this.userDevicesList.push(...this.userControlDevices);
-      this.userDevicesList.push(...this.userMonitorDevices);
-      this.userDevicesList.push(...this.userSliderDevices);
-      console.log(this.userMonitorDevices);
-      // // this.devicesList.push(...res.body.message);
+      this.userDevicesList.push(...data);
       // // this.devices.next(res.body.message);
       this.userDevices.next(this.userDevicesList);
     }, err => {
@@ -125,7 +63,7 @@ export class AddDeviceService implements OnDestroy {
   }
 
   addDevice(name, topic, type, emailId, min ?: number, max ?: number, step ?: number) {
-    this.userDevicesList = [];
+    // this.userDevicesList = [];
     const dev = {
       devname: name,
       devtopic: topic,
@@ -141,7 +79,8 @@ export class AddDeviceService implements OnDestroy {
     this.http.post('http://172.16.73.41:5000/admin/deviceconfig', dev,{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
       if ( res.status === 200 ) {
         console.log(res.body);
-        this.generateDevice(name, topic, type, emailId, min, max, step);
+        delete dev.email;
+        this.userDevicesList.push(dev);
         console.log('device list : ' + this.userDevicesList);
         this.userDevices.next(this.userDevicesList);
       } else {
@@ -158,9 +97,10 @@ export class AddDeviceService implements OnDestroy {
         if ( element.devname === name ) {
             this.http.delete('http://172.16.73.41:5000/admin/deviceconfig?email=' + emailId + '&dev='+ element.devname, { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
                 if ( res.status === 204 ) {
+                  console.log('204 received');
                     for( let item in DeviceType) {
+                      console.log(item);
                       if ( element.devtype === DeviceType[item]) {
-                        this.deviceTypeList[item].splice(this.deviceTypeList[item].indexOf(element));
                         this.userDevicesList.splice(this.userDevicesList.indexOf(element), 1);
                         this.userDevices.next(this.userDevicesList);
                       }
@@ -173,7 +113,7 @@ export class AddDeviceService implements OnDestroy {
     });
   }
 
-  modifyDevice(emailId, id, name, topic, type) {
+  modifyDevice(emailId, id, name, topic, type, min ?: number, max ?: number, step ?: number) {
     const dev = {
         email: emailId,
         devname: id,
@@ -181,6 +121,11 @@ export class AddDeviceService implements OnDestroy {
         new_devtopic: topic,
         new_devtype: type
       };
+      if ( min !== undefined) {
+        dev["new_devmin"] = min;
+        dev["new_devmax"] = max;
+        dev["new_devstep"] = step;
+      }
       this.userDevicesList.forEach((element, index, array) => {
       if ( element.devname === id ) {
           this.http.put('http://172.16.73.41:5000/admin/deviceconfig', dev ,{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
@@ -188,6 +133,11 @@ export class AddDeviceService implements OnDestroy {
             array[index].devname = name;
             array[index].devtopic = topic;
             array[index].devtype = type;
+            if ( min !== undefined) {
+              array[index].devmin = min;
+              array[index].devmax = max;
+              array[index].devstep = step;
+            }
           } else {
               console.log(res);
             }

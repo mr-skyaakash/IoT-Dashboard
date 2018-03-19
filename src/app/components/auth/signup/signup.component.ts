@@ -4,6 +4,7 @@ import { Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { SlideUpAnimation } from '../../../_animations/slide-up.animation';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -21,7 +22,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   role: FormControl;
   roles: Array<any>;
   rolesSubscription: Subscription;
-  constructor(private service: AuthService) { }
+  constructor(private service: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -44,6 +45,11 @@ export class SignupComponent implements OnInit, OnDestroy {
     });
 
     this.service.fetchRoles();
+  }
+
+  swipe() {
+    console.log('Swipe-down');
+    this.router.navigate(['/login']);
   }
 
   onSubmit() {

@@ -11,6 +11,7 @@ export class SidenavComponent implements OnInit {
 
   arr = [true, false, false, false];
   showSettings = false;
+  show = true;
 
   constructor(private sidenavMain: SidenavMainService, private authService: AuthService) { }
 

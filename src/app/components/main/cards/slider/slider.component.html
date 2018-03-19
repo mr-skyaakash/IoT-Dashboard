@@ -1,0 +1,15 @@
+<section ngClass="card-list" fxLayout fxLayout.lt-md="column" fxLayoutAlign.gt-sm="space-evenly center" fxLayoutGap="10px" fxLayoutWrap>
+    <mat-card ngClass="card" fxFlex.lt-md="100%" fxFlex.md="45" fxFlex.gt-md="30" *ngFor="let opt of sliderDevices; let i = index">
+      <mat-card-title fxLayout>
+          <h4>{{opt.devname}}</h4>
+      </mat-card-title>
+      <mat-card-content>
+          <mat-slider fxFlex [min]="opt.devmin" thumbLabel tickInterval="1" [max]="opt.devmax" [step]="opt.devstep" [value]="opt.devstatus" (change)="changedVal(opt,$event)"></mat-slider>
+      </mat-card-content>
+    </mat-card>
+    <mat-card ngClass="card" fxFlex.lt-sm="100%" fxFlex.sm="45%" fxFlex.md="30%" fxFlex.gt-md="30%" *ngIf="!sliderDevices || sliderDevices.length==0">
+      <mat-card-title fxLayout>
+          <span>No devices added</span>
+      </mat-card-title>
+  </mat-card>
+</section>

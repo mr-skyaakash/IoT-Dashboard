@@ -91,7 +91,7 @@ export class DataComponent implements OnInit, OnDestroy {
       this.options.forEach((element, index, array) => {
         console.log(element.title.text + ' and ' + device.devstatus );
         if ( element.title.text === device.devname ) {
-          this.chart[index].series[0].addPoint(device.devstatus);
+          this.chart[index].series[0].addPoint([new Date(device.devtime).getTime()+ this.indiaUTC ,device.devstatus]);
         }
       });
     });

@@ -6,7 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 export class CapitalizePipe implements PipeTransform {
     transform(value: string, args: any[]) {
-        console.log(value);
         if ( value === null ) {
             return 'Not Assigned';
         }

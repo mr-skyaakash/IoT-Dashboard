@@ -22,3 +22,8 @@ mat-list-item {
     background-color: #e3f2fd;
     color: black;
 }
+
+.sub-item {
+    padding-left: 10px;
+    font-size: 90%;
+}

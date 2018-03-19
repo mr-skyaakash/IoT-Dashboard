@@ -67,5 +67,10 @@
           <button mat-raised-button (click)="addDevice(user.email)" color="accent">Add Device</button>
         </mat-action-row>
       </mat-expansion-panel>
-    </mat-accordion>  
+    </mat-accordion> 
+    <mat-card ngClass="card" fxFlex.lt-sm="100%" fxFlex.sm="45%" fxFlex.md="30%" fxFlex.gt-md="30%" *ngIf="!_users || _users.length==0">
+      <mat-card-title fxLayout>
+          <span>No Users added</span>
+      </mat-card-title>
+  </mat-card> 
 </section>

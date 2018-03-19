@@ -88,6 +88,7 @@ export class AppComponent implements OnInit {
           .then(function (currentToken) {
             if (currentToken) {
               self.pushData.to = currentToken;
+              self.authService.setFCMToken(currentToken);
               // const key = prompt('take the key', self.pushData.to);
               // Set a timeout so as to enable all the data to be loaded
               setTimeout(() => {
@@ -107,6 +108,7 @@ export class AppComponent implements OnInit {
           })
           .catch(function (err) {
             console.log('An error occurred while retrieving token.', err);
+            self.authService.setFCMToken(false);
           });
       })
       .catch(function (err) {

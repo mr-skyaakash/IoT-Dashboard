@@ -5,7 +5,7 @@ import { DevicesComponent } from './cards/devices/devices.component';
 import { AddDeviceComponent } from './cards/settings/add-device.component';
 import { ModifyDeviceComponent } from './cards/settings/modify-device.component';
 import { DataComponent } from './cards/data/data.component';
-import { AdminComponent } from './cards/admin/admin.component';
+import { SliderComponent } from './cards/slider/slider.component';
 import { SettingsComponent } from './cards/settings/settings.component';
 import { CommonModule } from '@angular/common';
 import { Material } from '../../material.module';
@@ -37,7 +37,7 @@ export function highchartsFactory() {
     declarations: [
         TabsComponent,
         CardsComponent,
-        AdminComponent,
+        SliderComponent,
         DataComponent,
         DevicesComponent,
         SettingsComponent,
@@ -53,7 +53,7 @@ export function highchartsFactory() {
     exports: [
         TabsComponent,
         CardsComponent,
-        AdminComponent,
+        SliderComponent,
         DataComponent,
         DevicesComponent,
         SettingsComponent,

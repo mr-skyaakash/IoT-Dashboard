@@ -16,6 +16,7 @@ export class AuthService {
     status = new Subject<any>();
     roles = new Subject<any>();
     authChange = new Subject<boolean>();
+    fcmtoken: any = false;
 
     constructor(private router: Router, private http: HttpClient , private deviceServer: DeviceService) {
     }
@@ -30,6 +31,10 @@ export class AuthService {
         });
     }
 
+    setFCMToken(token) {
+        this.fcmtoken = token; 
+    }
+
     generateHeader() {
         const header = new Headers({'Access-Control-Allow-Origin': '*',
                                 'content-type': 'application/json'});
@@ -41,7 +46,8 @@ export class AuthService {
     login(loginUser: LoginUser) {
         const user = {
                 email: loginUser.email,
-                password: loginUser.password
+                password: loginUser.password,
+                id: this.fcmtoken
         };
         this.clearEmail();
         console.log('login');
@@ -72,7 +78,8 @@ export class AuthService {
                 username: signupUser.name,
                 email: signupUser.email,
                 password: signupUser.password,
-                role: signupUser.role
+                role: signupUser.role,
+                id: this.fcmtoken
         };
         this.clearEmail();
         console.log(signupUser);
@@ -118,8 +125,9 @@ export class AuthService {
     }
 
     logout() {
+
         console.log(localStorage.getItem('token_id'));
-        this.http.post('http://172.16.73.41:5000/auth/logout',
+        this.http.post('http://172.16.73.41:5000/auth/logout', { id: this.fcmtoken } ,
                         { headers: this.generateHeader() , observe: 'response'} ).subscribe(resp => {
             console.log(resp);
         }, err => {

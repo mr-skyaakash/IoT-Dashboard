@@ -1,12 +1,15 @@
 <mat-nav-list>
-    <mat-list-item [ngClass]="{'item': true, 'item-select': arr[0]}" (click)="select(0)"  cdkFocusRegionStart>
-      <mat-icon>devices</mat-icon><span class="nav-caption">Control</span>
+    <mat-list-item (click)="show=!show" [ngClass]="{'item-select': !show && !arr[1] && !arr[3]}">
+        <mat-icon>devices</mat-icon><span class="nav-caption">Control</span>
+    </mat-list-item>
+    <mat-list-item *ngIf="show" class="sub-item" [ngClass]="{'item': true, 'item-select': arr[0]}" (click)="select(0)"  cdkFocusRegionStart>
+      <mat-icon>devices</mat-icon><span class="nav-caption">Switch</span>
+    </mat-list-item>
+    <mat-list-item *ngIf="show" class="sub-item" [ngClass]="{'item': true, 'item-select': arr[2]}" (click)="select(2)">
+        <mat-icon>build</mat-icon><span class="nav-caption">Slider</span>
     </mat-list-item>
     <mat-list-item [ngClass]="{'item': true, 'item-select': arr[1]}" (click)="select(1)" cdkFocusInitial>
         <mat-icon>cast</mat-icon><span class="nav-caption">Monitor</span>
-    </mat-list-item>
-    <mat-list-item [ngClass]="{'item': true, 'item-select': arr[2]}" (click)="select(2)">
-        <mat-icon>build</mat-icon><span class="nav-caption">Admin</span>
     </mat-list-item>
     <mat-list-item [ngClass]="{'item': true, 'item-select': arr[3]}" (click)="select(3)" *ngIf="showSettings"  cdkFocusRegionEnd>
         <mat-icon>settings</mat-icon><span class="nav-caption">Settings</span>

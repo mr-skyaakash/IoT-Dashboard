@@ -68,13 +68,23 @@ export class SettingsComponent implements OnInit, OnDestroy {
       data: {
         name: dev.devname,
         topic: dev.devtopic,
-        type: dev.devtype
+        type: dev.devtype,
+        min: dev.devmin,
+        max: dev.devmax,
+        step: dev.devstep
       }
     });
 
     deviceDialog.afterClosed().subscribe(result => {
       if ( result !== false ) {
-        this.deviceService.modifyDevice(email, dev.devname , result.name,  result.topic, result.type);
+        // this.deviceService.modifyDevice(email, dev.devname , result.name,  result.topic, result.type);
+        console.log(result);
+        if ( Object.keys(result).length > 3 ) {
+          console.log('slider');
+          this.deviceService.modifyDevice(email, dev.devname, result.name, result.topic, result.type, result.min, result.max, result.step);
+        } else {
+          this.deviceService.modifyDevice(email, dev.devname, result.name, result.topic, result.type );
+        }
       }
     });
   }

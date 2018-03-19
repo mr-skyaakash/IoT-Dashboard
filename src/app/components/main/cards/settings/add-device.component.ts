@@ -87,6 +87,7 @@ export class AddDeviceComponent implements OnInit, AfterViewChecked {
     }
 
     handleError(){
+        console.log(this.selectedType);
         if ( this.selectedType === 'slider'  ) {
             if ( this.deviceMin.value < this.deviceMax.value )
                 return this.addDeviceForm.invalid;
