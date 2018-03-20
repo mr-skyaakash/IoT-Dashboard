@@ -43,12 +43,12 @@ export class DataComponent implements OnInit, OnDestroy {
 
     this._deviceSubscription = this.monitorService.deviceInfo.subscribe(deviceList => {
       
-      
       this.options = [];
       this._devices = deviceList;
       for(let i=0; i<this._devices.length; i++ ) {
 
         for(let j=0;j<this._devices[i].devstatus.length;j++) {
+          console.log('Device Date : ' + this._devices[i].devtime);
           this.dataTuple[i][j] = [new Date(this._devices[i].devtime[j]).getTime()+ this.indiaUTC ,this._devices[i].devstatus[j]];
         }
 

@@ -11,6 +11,13 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
                     <mat-dialog-content fxLayout fxLayoutAlign="space-evenly center">
                         <section fxLayout="column" fxLayoutAlign="space-evenly center">
                             <mat-form-field>
+                                <mat-select formControlName='type' [(value)]="selectedType" placeholder="Role" #type required>
+                                <mat-option *ngFor="let type of types" [value]="type.dev_type">
+                                    {{ type.dev_type | capInit }}
+                                </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
                                 <input matInput formControlName='name' placeholder='Device Name' #device required/>
                                 <mat-error>Name cannot be empty</mat-error>
                             </mat-form-field>
@@ -29,13 +36,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
                             <mat-form-field  *ngIf="type.value === 'slider'">
                                 <input formControlName='step' type="number" [min]="deviceMin.value" matInput placeholder='Device Step Value' #stepval required/>
                                 <mat-error>Step cannot be empty</mat-error>
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-select formControlName='type' [(value)]="selectedType" placeholder="Role" #type required>
-                                <mat-option *ngFor="let type of types" [value]="type.dev_type">
-                                    {{ type.dev_type | capInit }}
-                                </mat-option>
-                                </mat-select>
                             </mat-form-field>
                         </section>
                         </mat-dialog-content>
