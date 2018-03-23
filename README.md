@@ -40,4 +40,6 @@ The user has functionality to monitor and control IoT devices linked to the dash
 
 ### Note : The project is still in development phase.
   
+## TODO
 
+- [ ] Fix scroll bug due to swipe gestures.
