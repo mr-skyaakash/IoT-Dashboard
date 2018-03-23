@@ -42,4 +42,4 @@ The user has functionality to monitor and control IoT devices linked to the dash
   
 ## TODO
 
-- [ ] Fix scroll bug due to swipe gestures.
+- [ ] Fix scroll bug due to HammerJS swipe gestures.
