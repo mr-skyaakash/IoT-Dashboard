@@ -1,27 +1,43 @@
-# Demo
+# IoT Device Management Dashboard
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.7.
+<p><span>Powered By</span><img src="https://cdn-images-1.medium.com/max/490/1*hDJlAbtIVBrvyau4d8JRLg.png" width="200" height="200" align="middle"><img src="https://www.srijan.net/sites/default/files/inline-images/highcharts%20resized_0.png" width="500" height="100" align="middle">
+</p>
 
-## Development server
+This project is an open-source platform for IOT device management and configuration that helps end-users manage and monitor their IoT devices from remote locations.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+It serves as a responsive web client built using Angular 5 and Angular's Material UI, and incorporates 
 
-## Code scaffolding
+    - JWT authentication
+    - Progressive Web App
+    - Highcharts
+    - Websockets 
+    - REST API 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## How to Run ?
 
-## Build
+Clone the repositoy or download in .zip format. Run <code>ng serve</code> in the root directory and navigate to <code>localhost:4200</code>
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+## How to Use ?
 
-## Running unit tests
+The user has functionality to monitor and control IoT devices linked to the dashboard and the admin has the priviledge to configure IoT devices for the user.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+| ROLE | FUNCTIONALITY |
+| ------ | ------ |
+| User | Monitor and Control IoT devices linked to the dashboard by the Admin|
+| Admin | Configure IoT devices for the User |
 
-## Running end-to-end tests
+#### Admin signs up into the dash 
+<p><img src="https://github.com/mr-skyaakash/IoT-Dashboard/blob/master/screenshots/signup.png" width="620" height="310" align="middle"></p>
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+#### Has functionality to add, modify and remove devices for existing Users
+<p><img src="https://github.com/mr-skyaakash/IoT-Dashboard/blob/master/screenshots/admin-console.png" width="620" height="310" align="middle"></p>
 
-## Further help
+#### Client logs in to the dashboard 
+<p><img src="https://github.com/mr-skyaakash/IoT-Dashboard/blob/master/screenshots/login.png" width="620" height="310" align="middle"></p>
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+#### Has functionality to control the status of his/her devices 
+<p><img src="https://github.com/mr-skyaakash/IoT-Dashboard/blob/master/screenshots/user-console.png" width="620" height="310" align="middle" justify-items="center"></p>
+
+### Note : The project is still in development phase.
+  
+
