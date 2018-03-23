@@ -40,7 +40,7 @@ export class AddDeviceService implements OnDestroy {
 
   getUserList() {
     this.UserList = [];
-    this.http.get( this.server + 'admin/userdetails', { headers: this.generateHeader()}).subscribe( res => {
+    this.http.get<any>( this.server + 'admin/userdetails', { headers: this.generateHeader()}).subscribe( res => {
       console.log(res.message);
       this.users.next(res.message);
     });
@@ -52,7 +52,8 @@ export class AddDeviceService implements OnDestroy {
     };
     this.userDevicesList = [];
     console.log('Device List Local : ' + this.userDevicesList);
-    this.http.post( this.server + 'admin/userdetails', user,  { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
+    this.http.post( this.server + 'admin/userdetails', user,
+                    { headers: this.generateHeader(), observe: 'response'} ).subscribe((res: any) => {
       const data = res.body.message;
       console.log(res.body.message);
       // console.log(this.userControlDevices);
@@ -156,7 +157,7 @@ export class AddDeviceService implements OnDestroy {
 
     fetchUserControlDevice() {
       this.deviceInfoList = [];
-      this.http.get( this.server + 'device/control' , { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
+      this.http.get<any>( this.server + 'device/control' , { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
         if ( res.status === 200 ) {
           console.log(res)
           this.deviceInfoList.push(...res.body.message);
@@ -170,7 +171,7 @@ export class AddDeviceService implements OnDestroy {
 
     fetchUserMonitorDevice() {
       this.deviceInfoList = [];
-      this.http.get( this.server + 'device/monitor' ,{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
+      this.http.get<any>( this.server + 'device/monitor' ,{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
         if ( res.status === 200 ) {
           console.log(res);
           this.deviceInfoList.push(...res.body.message);
@@ -184,7 +185,7 @@ export class AddDeviceService implements OnDestroy {
 
     fetchDeviceType() {
       const types = [];
-      this.http.get( this.server + 'devicetype',
+      this.http.get<any>( this.server + 'devicetype',
                     { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {        if ( res.status === 200 ) {
         console.log(res.body);
         types.push(...res.body);

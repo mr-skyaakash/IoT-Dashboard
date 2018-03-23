@@ -7,5 +7,6 @@ export const environment = {
     projectId: 'what-we-do-55cf9',
     storageBucket: 'what-we-do-55cf9.appspot.com',
     messagingSenderId: '6226061394'
-  }
+  },
+  server: 'https://cdi-iot-server.herokuapp.com/'
 };

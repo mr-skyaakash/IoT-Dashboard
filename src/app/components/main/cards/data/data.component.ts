@@ -18,8 +18,8 @@ export class DataComponent implements OnInit, OnDestroy {
 
   indiaUTC = 19800000;
 
-  options = new Array<Object>();
-  chart = new Array<Object>();
+  options = new Array<any>();
+  chart = new Array<any>();
 
   sub: Subscription;
   newPoint: number;
@@ -27,7 +27,7 @@ export class DataComponent implements OnInit, OnDestroy {
   dataTuple = [[[]]];
   dates = [];
 
-  _devices= new Array<DeviceInfo>();
+  _devices = new Array<DeviceInfo>();
   private _deviceSubscription: Subscription;
 
   private _newDataSubscription: Subscription;
@@ -85,7 +85,7 @@ export class DataComponent implements OnInit, OnDestroy {
     this.deviceService.connect();
 
     this._newDataSubscription = this.deviceService.newDeviceData.map(data => {
-      return JSON.parse(data);
+      return JSON.parse(data.toString());
     }).subscribe( device => {
       this.options.forEach((element, index, array) => {
         console.log(element.title.text + ' and ' + device.devstatus );
