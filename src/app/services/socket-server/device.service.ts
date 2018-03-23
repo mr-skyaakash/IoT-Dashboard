@@ -1,12 +1,13 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { io } from 'socket.io';
 import { Subject } from 'rxjs/Subject';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
-export class DeviceService{
+export class DeviceService {
 
   private static socket: any;
-  private URL = 'http://172.16.73.41:5000/';
+  private URL = environment.server;
   private email;
   newDeviceData = new Subject<number>();
 

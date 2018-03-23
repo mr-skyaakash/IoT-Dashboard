@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DeviceService } from '../socket-server/device.service';
+import { environment } from '../../../environments/environment';
 import * as moment from 'moment';
 
 @Injectable()
@@ -17,13 +18,14 @@ export class AuthService {
     roles = new Subject<any>();
     authChange = new Subject<boolean>();
     fcmtoken: any = false;
+    server = environment.server;
 
     constructor(private router: Router, private http: HttpClient , private deviceServer: DeviceService) {
     }
 
     fetchRoles() {
         console.log('Fetching roles');
-        this.http.get('http://172.16.73.41:5000/roles', {headers: this.generateHeader(), observe: 'response'}).subscribe(resp => {
+        this.http.get(this.server + 'roles', {headers: this.generateHeader(), observe: 'response'}).subscribe(resp => {
              this.roles.next(resp.body);
              console.log(resp);
         }, err => {
@@ -32,7 +34,7 @@ export class AuthService {
     }
 
     setFCMToken(token) {
-        this.fcmtoken = token; 
+        this.fcmtoken = token;
     }
 
     generateHeader() {
@@ -51,7 +53,7 @@ export class AuthService {
         };
         this.clearEmail();
         console.log('login');
-            this.http.post('http://172.16.73.41:5000/auth/login', JSON.stringify(user),
+            this.http.post( this.server + 'auth/login', JSON.stringify(user),
                             { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
                 if ( res.status === 200 ) {
                     this.router.navigate(['/']);
@@ -83,7 +85,7 @@ export class AuthService {
         };
         this.clearEmail();
         console.log(signupUser);
-        this.http.post('http://172.16.73.41:5000/auth/register', user,
+        this.http.post( this.server + 'auth/register', user,
                         { headers: this.generateHeader() , observe: 'response'} ).subscribe(resp => {
             if ( resp.status === 201 ) {
                 console.log(resp);
@@ -101,7 +103,7 @@ export class AuthService {
     }
 
     private storeEmail(email) {
-        localStorage.setItem('email',email);
+        localStorage.setItem('email', email);
     }
 
     private clearEmail() {
@@ -112,7 +114,7 @@ export class AuthService {
         const expiresAt = moment().add(100000, 'second');
         console.log(res.body.auth_token);
         if ( res.body.status === 'ADMIN' ) {
-            localStorage.setItem('role',"ADMIN");        
+            localStorage.setItem('role', 'ADMIN');
         }
         localStorage.setItem('token_id', res.body.auth_token);
         localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()) );
@@ -127,7 +129,7 @@ export class AuthService {
     logout() {
 
         console.log(localStorage.getItem('token_id'));
-        this.http.post('http://172.16.73.41:5000/auth/logout', { id: this.fcmtoken } ,
+        this.http.post( this.server + 'auth/logout', { id: this.fcmtoken } ,
                         { headers: this.generateHeader() , observe: 'response'} ).subscribe(resp => {
             console.log(resp);
         }, err => {

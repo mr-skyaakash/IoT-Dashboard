@@ -2,16 +2,17 @@ import { Injectable } from '@angular/core';
 import { io } from 'socket.io';
 import { Subject } from 'rxjs/Subject';
 import { Slider } from './config/slider.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class SliderService {
 
   private static socket: any;
-  private URL = 'http://172.16.73.41:5000/';
+  private URL = environment.server;
   private namespace;
   private sliderDeviceList = new Array<Slider>();
   public sliderDevice = new Subject<Array<Slider>>();
-
+  private server = environment.server;
   constructor() {
     this.namespace = 'device/slider';
   }
@@ -24,7 +25,7 @@ export class SliderService {
     });
     console.log(this.namespace);
     SliderService.socket.on('connect', this.onConnect.bind(this));
-    SliderService.socket.on(this.namespace+'/send', this.onEvent.bind(this));
+    SliderService.socket.on(this.namespace + '/send', this.onEvent.bind(this));
     // SliderService.socket.on('yo', msg => {
     //   console.log(msg);
     // });

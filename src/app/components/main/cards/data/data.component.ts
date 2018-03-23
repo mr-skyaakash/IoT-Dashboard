@@ -18,7 +18,7 @@ export class DataComponent implements OnInit, OnDestroy {
 
   indiaUTC = 19800000;
 
-  options= new Array<Object>();
+  options = new Array<Object>();
   chart = new Array<Object>();
 
   sub: Subscription;
@@ -39,15 +39,14 @@ export class DataComponent implements OnInit, OnDestroy {
 
   constructor(private monitorService: AddDeviceService ,private deviceService: DeviceService ,private authService: AuthService , private dialog: MatDialog) {
 
-    
 
     this._deviceSubscription = this.monitorService.deviceInfo.subscribe(deviceList => {
-      
+
       this.options = [];
       this._devices = deviceList;
-      for(let i=0; i<this._devices.length; i++ ) {
+      for (let i = 0; i < this._devices.length; i++ ) {
 
-        for(let j=0;j<this._devices[i].devstatus.length;j++) {
+        for (let j = 0; j < this._devices[i].devstatus.length;j++) {
           console.log('Device Date : ' + this._devices[i].devtime);
           this.dataTuple[i][j] = [new Date(this._devices[i].devtime[j]).getTime()+ this.indiaUTC ,this._devices[i].devstatus[j]];
         }
@@ -91,12 +90,10 @@ export class DataComponent implements OnInit, OnDestroy {
       this.options.forEach((element, index, array) => {
         console.log(element.title.text + ' and ' + device.devstatus );
         if ( element.title.text === device.devname ) {
-          this.chart[index].series[0].addPoint([new Date(device.devtime).getTime()+ this.indiaUTC ,device.devstatus]);
+          this.chart[index].series[0].addPoint([new Date(device.devtime).getTime() + this.indiaUTC ,device.devstatus]);
         }
       });
     });
-
-    
   }
 
   ngOnInit() {
@@ -109,8 +106,6 @@ export class DataComponent implements OnInit, OnDestroy {
       //   this.chart.series[0].addPoint(data);
     // });
     }
-
-    
   }
 
   // for(let i=0;i< this._devices.length;i++) {

@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, DoCheck, AfterViewChecked } from 
 import { MatDialogRef } from '@angular/material';
 import { AddDeviceService } from '../../../../services/devices/admin/add-device.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { DeviceType } from '../../../../services/devices/config/devicetype';
 
 @Component({
     selector: 'app-dialog',
@@ -25,15 +26,15 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
                                 <input matInput formControlName='topic' placeholder='Device Topic' #topic required/>
                                 <mat-error>Topic cannot be empty</mat-error>
                             </mat-form-field>
-                            <mat-form-field  *ngIf="type.value === 'slider'">
+                            <mat-form-field  *ngIf="type.value === deviceTypes.slider">
                                 <input formControlName='min' type="number" matInput placeholder='Device Min Value' #minval required/>
                                 <mat-error>Min. value cannot be empty or lesser than max value</mat-error>
                             </mat-form-field>
-                            <mat-form-field  *ngIf="type.value === 'slider'">
+                            <mat-form-field  *ngIf="type.value === deviceTypes.slider">
                                 <input formControlName='max' type="number" matInput placeholder='Device Max Value' #maxval required/>
                                 <mat-error>Max. value cannot be empty</mat-error>
                             </mat-form-field>
-                            <mat-form-field  *ngIf="type.value === 'slider'">
+                            <mat-form-field  *ngIf="type.value === deviceTypes.slider">
                                 <input formControlName='step' type="number" [min]="deviceMin.value" matInput placeholder='Device Step Value' #stepval required/>
                                 <mat-error>Step cannot be empty</mat-error>
                             </mat-form-field>
@@ -59,8 +60,10 @@ export class AddDeviceComponent implements OnInit, AfterViewChecked {
     deviceMin: FormControl;
     deviceMax: FormControl;
     deviceStep: FormControl;
+    deviceTypes = DeviceType;
 
-    constructor( private fetchType: AddDeviceService , private currentDialog: MatDialogRef<AddDeviceComponent>,private cd: ChangeDetectorRef) {}
+    constructor( private fetchType: AddDeviceService ,
+                private currentDialog: MatDialogRef<AddDeviceComponent>,private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.addDeviceForm = new FormGroup({
@@ -87,8 +90,7 @@ export class AddDeviceComponent implements OnInit, AfterViewChecked {
     }
 
     handleError(){
-        console.log(this.selectedType);
-        if ( this.selectedType === 'slider'  ) {
+        if ( this.selectedType === DeviceType.slider  ) {
             if ( this.deviceMin.value < this.deviceMax.value )
                 return this.addDeviceForm.invalid;
             return true;
@@ -102,7 +104,7 @@ export class AddDeviceComponent implements OnInit, AfterViewChecked {
         event.preventDefault();
 
         console.log( this.deviceType.value )
-        if ( this.deviceType.value !== 'slider' ) {
+        if ( this.deviceType.value !== DeviceType.slider ) {
             this.currentDialog.close({name: this.deviceName.value, topic: this.deviceTopic.value, type: this.deviceType.value});
         } else {
             if (this.deviceMin.value >= this.deviceMax.value) {

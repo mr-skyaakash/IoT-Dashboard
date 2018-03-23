@@ -10,6 +10,7 @@ import { Control } from '../config/control.model';
 import { Monitor } from '../config/monitor.model';
 import { Slider } from '../config/slider.model';
 import { DeviceType } from '../config/devicetype';
+import { environment } from '../../../../environments/environment';
 
 
 @Injectable()
@@ -21,6 +22,7 @@ export class AddDeviceService implements OnDestroy {
   public users = new Subject<User[]>();
   private deviceInfoList: DeviceInfo[] = [];
   public deviceInfo = new Subject<Array<DeviceInfo>>();
+  private server = environment.server;
 
   private userDevicesList: Array<any>;
   public userDevices = new Subject<Array<any>>();
@@ -35,10 +37,10 @@ export class AddDeviceService implements OnDestroy {
   }
 
   //admin functions
-  
+
   getUserList() {
     this.UserList = [];
-    this.http.get('http://172.16.73.41:5000/admin/userdetails', { headers: this.generateHeader()}).subscribe( res => {
+    this.http.get( this.server + 'admin/userdetails', { headers: this.generateHeader()}).subscribe( res => {
       console.log(res.message);
       this.users.next(res.message);
     });
@@ -50,7 +52,7 @@ export class AddDeviceService implements OnDestroy {
     };
     this.userDevicesList = [];
     console.log('Device List Local : ' + this.userDevicesList);
-    this.http.post('http://172.16.73.41:5000/admin/userdetails', user,  { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
+    this.http.post( this.server + 'admin/userdetails', user,  { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
       const data = res.body.message;
       console.log(res.body.message);
       // console.log(this.userControlDevices);
@@ -76,7 +78,7 @@ export class AddDeviceService implements OnDestroy {
       dev["devstep"] = step;
     }
     console.log(dev + ' ' + min);
-    this.http.post('http://172.16.73.41:5000/admin/deviceconfig', dev,{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
+    this.http.post( this.server + 'admin/deviceconfig', dev,{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
       if ( res.status === 200 ) {
         console.log(res.body);
         delete dev.email;
@@ -90,16 +92,16 @@ export class AddDeviceService implements OnDestroy {
       console.log(err);
     });
   }
-  
-  
+
+
   removeDevice(emailId, name) {
     this.userDevicesList.forEach(element => {
         if ( element.devname === name ) {
-            this.http.delete('http://172.16.73.41:5000/admin/deviceconfig?email=' + emailId + '&dev='+ element.devname, { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
+            this.http.delete( this.server + 'admin/deviceconfig?email=' + emailId + '&dev='+ element.devname, 
+                              { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
                 if ( res.status === 204 ) {
                   console.log('204 received');
-                    for( let item in DeviceType) {
-                      console.log(item);
+                    for ( const item in DeviceType) {
                       if ( element.devtype === DeviceType[item]) {
                         this.userDevicesList.splice(this.userDevicesList.indexOf(element), 1);
                         this.userDevices.next(this.userDevicesList);
@@ -128,7 +130,8 @@ export class AddDeviceService implements OnDestroy {
       }
       this.userDevicesList.forEach((element, index, array) => {
       if ( element.devname === id ) {
-          this.http.put('http://172.16.73.41:5000/admin/deviceconfig', dev ,{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
+          this.http.put( this.server + 'admin/deviceconfig', dev ,
+                          { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
           if ( res.status === 204 ) {
             array[index].devname = name;
             array[index].devtopic = topic;
@@ -153,7 +156,7 @@ export class AddDeviceService implements OnDestroy {
 
     fetchUserControlDevice() {
       this.deviceInfoList = [];
-      this.http.get('http://172.16.73.41:5000/device/control' ,{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
+      this.http.get( this.server + 'device/control' , { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
         if ( res.status === 200 ) {
           console.log(res)
           this.deviceInfoList.push(...res.body.message);
@@ -167,9 +170,9 @@ export class AddDeviceService implements OnDestroy {
 
     fetchUserMonitorDevice() {
       this.deviceInfoList = [];
-      this.http.get('http://172.16.73.41:5000/device/monitor' ,{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
+      this.http.get( this.server + 'device/monitor' ,{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {
         if ( res.status === 200 ) {
-          console.log(res)
+          console.log(res);
           this.deviceInfoList.push(...res.body.message);
           // console.log('Device List : ' + [...res.json().devices]);
           this.deviceInfo.next(this.deviceInfoList);
@@ -180,9 +183,10 @@ export class AddDeviceService implements OnDestroy {
     }
 
     fetchDeviceType() {
-      let types = [];
-      this.http.get('http://172.16.73.41:5000/devicetype',{ headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {        if ( res.status === 200 ) {
-        console.log(res.body);  
+      const types = [];
+      this.http.get( this.server + 'devicetype',
+                    { headers: this.generateHeader(), observe: 'response'} ).subscribe(res => {        if ( res.status === 200 ) {
+        console.log(res.body);
         types.push(...res.body);
         }
       }, err => {
@@ -190,12 +194,13 @@ export class AddDeviceService implements OnDestroy {
       });
       return types;
     }
-    
+
     changeState(devName, devStatus) {
     this.deviceInfoList.forEach(element => {
       if ( element.devname === devName ) {
         element.devstatus = devStatus;
-        this.http.post('http://172.16.73.41:5000/device/deviceinfo', element , { headers: this.generateHeader(), observe: 'response'}).subscribe( res => {
+        this.http.post( this.server + 'device/deviceinfo', element , 
+                      { headers: this.generateHeader(), observe: 'response'}).subscribe( res => {
           console.log(res);
         });
       }
