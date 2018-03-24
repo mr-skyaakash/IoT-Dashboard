@@ -20,7 +20,8 @@ export class SliderService {
   connect() {
     this.sliderDeviceList = [];
     SliderService.socket = require('socket.io-client')(this.URL, {
-      transport : ['websocket'],
+      reconnect: true,
+      transport : ['websocket', 'polling'],
       credentials : 'false'
     });
     console.log(this.namespace);

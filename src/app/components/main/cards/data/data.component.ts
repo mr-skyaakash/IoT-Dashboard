@@ -44,6 +44,7 @@ export class DataComponent implements OnInit, OnDestroy {
 
       this.options = [];
       this._devices = deviceList;
+      this.dataTuple = [[[]]];
       for (let i = 0; i < this._devices.length; i++ ) {
 
         for (let j = 0; j < this._devices[i].devstatus.length;j++) {

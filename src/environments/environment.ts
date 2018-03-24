@@ -14,4 +14,5 @@ export const environment = {
     messagingSenderId: '6226061394'
   },
   server: 'https://cdi-iot-server.herokuapp.com/'
+  // server: 'http://0.0.0.0:5000/'
 };
